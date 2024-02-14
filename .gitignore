@@ -1,1 +1,11 @@
-**/plugins/
+# Ignore all files and folders
+*
+
+# Except
+!nvim/**/*
+!tmux/**/*
+!Brewfile
+!.zshrc
+
+# Ignore tmux/plugins
+!tmux/plugins/
