@@ -8,4 +8,4 @@
 !.zshrc
 
 # Ignore tmux/plugins
-!tmux/plugins/
+tmux/plugins/
