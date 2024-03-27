@@ -50,6 +50,11 @@ vim.keymap.set('t', '<C-Space>', [[<C-\><C-n>]], { noremap = true })
 vim.keymap.set('n', '<leader>h', '<Cmd>vsplit<CR><C-w>l', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>v', '<Cmd>split<CR><C-w>j', { noremap = true, silent = true })
 
+-- Resize windows
+vim.keymap.set("n", "<Left>", ":vertical resize +4<CR>")
+vim.keymap.set("n", "<Right>", ":vertical resize -4<CR>")
+vim.keymap.set("n", "<Up>", ":horizontal resize +4<CR>")
+vim.keymap.set("n", "<Down>", ":horizontal resize -4<CR>")
 -- NERDTree
 
 -- Vim tmux navigator
