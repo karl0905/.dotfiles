@@ -70,6 +70,13 @@ return require('packer').startup(function(use)
   use 'christoomey/vim-tmux-navigator'
   use 'preservim/nerdtree'
   use {
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    config = function()
+      require("nvim-autopairs").setup {}
+    end
+  }
+  use {
     'lewis6991/gitsigns.nvim',
     requires = {
       'nvim-lua/plenary.nvim'
