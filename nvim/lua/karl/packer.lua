@@ -78,6 +78,10 @@ return require('packer').startup(function(use)
       require("nvim-autopairs").setup {}
     end
   }
+  -- dadbod for SQL
+  use 'tpope/vim-dadbod'
+  use 'kristijanhusak/vim-dadbod-ui'
+  use 'kristijanhusak/vim-dadbod-completion'
   use {
     'lewis6991/gitsigns.nvim',
     requires = {

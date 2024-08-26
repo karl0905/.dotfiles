@@ -69,6 +69,12 @@ vim.keymap.set('n', '{Up-Mapping}', '<Cmd>TmuxNavigateUp<CR>', { silent = true }
 vim.keymap.set('n', '{Right-Mapping}', '<Cmd>TmuxNavigateRight<CR>', { silent = true })
 vim.keymap.set('n', '{Previous-Mapping}', '<Cmd>TmuxNavigatePrevious<CR>', { silent = true })
 
+-- vim dadbod keybinds
+-- toggle dadbod UI
+vim.keymap.set("n", "<leader>db", "<Cmd>DBUIToggle<CR>");
+-- run current buffer
+vim.keymap.set("n", "<leader>db", "<Cmd>DB<CR>");
+
 vim.keymap.set("n", "<leader><leader>", function()
   vim.cmd("so")
 end)
