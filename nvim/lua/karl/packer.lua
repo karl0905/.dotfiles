@@ -125,9 +125,6 @@ return require('packer').startup(function(use)
           row = 0,
           col = 1
         },
-        yadm                         = {
-          enable = false
-        },
       }
     end
   }
