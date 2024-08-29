@@ -73,7 +73,7 @@ vim.keymap.set('n', '{Previous-Mapping}', '<Cmd>TmuxNavigatePrevious<CR>', { sil
 -- toggle dadbod UI
 vim.keymap.set("n", "<leader>db", "<Cmd>DBUIToggle<CR>");
 -- run current buffer
-vim.keymap.set("n", "<leader>db", "<Cmd>DB<CR>");
+vim.keymap.set("n", "<leader>dr", "<Cmd>DB<CR>");
 
 vim.keymap.set("n", "<leader><leader>", function()
   vim.cmd("so")
