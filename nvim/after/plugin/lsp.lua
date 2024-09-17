@@ -23,6 +23,19 @@ require('mason').setup({
   },
 })
 
+require'lspconfig'.emmet_ls.setup {
+  capabilities = {
+    textDocument = {
+      completion = {
+        completionItem = {
+          snippetSupport = true,
+        },
+      },
+    },
+  },
+  filetypes = { "html", "css", "javascript", "typescript", "javascriptreact", "typescriptreact" }, 
+}
+
 -- Setup vim-dadbod for SQL completion
 require('lspconfig').sqls.setup {
   on_attach = function(client, bufnr)
