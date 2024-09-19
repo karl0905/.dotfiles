@@ -121,7 +121,7 @@ _G.packer_plugins = {
     url = "https://github.com/rafamadriz/friendly-snippets"
   },
   ["gitsigns.nvim"] = {
-    config = { "\27LJ\2\n¶\6\0\0\5\0\24\0\0276\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\16\0005\3\4\0005\4\3\0=\4\5\0035\4\6\0=\4\a\0035\4\b\0=\4\t\0035\4\n\0=\4\v\0035\4\f\0=\4\r\0035\4\14\0=\4\15\3=\3\17\0025\3\18\0=\3\19\0025\3\20\0=\3\21\0025\3\22\0=\3\23\2B\0\2\1K\0\1\0\19preview_config\1\0\5\nstyle\fminimal\bcol\3\1\rrelative\vcursor\vborder\vsingle\brow\3\0\28current_line_blame_opts\1\0\5\ndelay\3è\a\18virt_text_pos\beol\14virt_text\2\23virt_text_priority\3d\22ignore_whitespace\1\17watch_gitdir\1\0\1\17follow_files\2\nsigns\1\0\15\14word_diff\1\vlinehl\1\nnumhl\1\18sign_priority\3\6\15signcolumn\2!current_line_blame_formatter1<author>, <author_time:%Y-%m-%d> - <summary>\20update_debounce\3d\21status_formatter\0\20max_file_length\3À¸\2\19preview_config\0\nsigns\0\28current_line_blame_opts\0\23current_line_blame\1\24attach_to_untracked\2\17watch_gitdir\0\14untracked\1\0\1\ttext\bâ”†\17changedelete\1\0\1\ttext\6~\14topdelete\1\0\1\ttext\bâ€¾\vdelete\1\0\1\ttext\6_\vchange\1\0\1\ttext\bâ”‚\badd\1\0\6\14untracked\0\badd\0\vdelete\0\vchange\0\17changedelete\0\14topdelete\0\1\0\1\ttext\bâ”‚\nsetup\rgitsigns\frequire\0" },
+    config = { "\27LJ\2\n¦\6\0\0\5\0\24\0\0276\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\16\0005\3\4\0005\4\3\0=\4\5\0035\4\6\0=\4\a\0035\4\b\0=\4\t\0035\4\n\0=\4\v\0035\4\f\0=\4\r\0035\4\14\0=\4\15\3=\3\17\0025\3\18\0=\3\19\0025\3\20\0=\3\21\0025\3\22\0=\3\23\2B\0\2\1K\0\1\0\19preview_config\1\0\5\nstyle\fminimal\rrelative\vcursor\bcol\3\1\vborder\vsingle\brow\3\0\28current_line_blame_opts\1\0\5\14virt_text\2\23virt_text_priority\3d\22ignore_whitespace\1\ndelay\3è\a\18virt_text_pos\beol\17watch_gitdir\1\0\1\17follow_files\2\nsigns\1\0\15\nsigns\0\28current_line_blame_opts\0\23current_line_blame\1\24attach_to_untracked\2\nnumhl\1\17watch_gitdir\0\14word_diff\1\vlinehl\1\15signcolumn\2\18sign_priority\3\6\20update_debounce\3d!current_line_blame_formatter1<author>, <author_time:%Y-%m-%d> - <summary>\5\0\20max_file_length\3À¸\2\19preview_config\0\14untracked\1\0\1\ttext\bâ”†\17changedelete\1\0\1\ttext\6~\14topdelete\1\0\1\ttext\bâ€¾\vdelete\1\0\1\ttext\6_\vchange\1\0\1\ttext\bâ”‚\badd\1\0\6\vchange\0\17changedelete\0\14untracked\0\vdelete\0\14topdelete\0\badd\0\1\0\1\ttext\bâ”‚\nsetup\rgitsigns\frequire\0" },
     loaded = true,
     path = "/Users/karl/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
     url = "https://github.com/lewis6991/gitsigns.nvim"
@@ -259,6 +259,10 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+-- Config for: gitsigns.nvim
+time([[Config for gitsigns.nvim]], true)
+try_loadstring("\27LJ\2\n¦\6\0\0\5\0\24\0\0276\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\16\0005\3\4\0005\4\3\0=\4\5\0035\4\6\0=\4\a\0035\4\b\0=\4\t\0035\4\n\0=\4\v\0035\4\f\0=\4\r\0035\4\14\0=\4\15\3=\3\17\0025\3\18\0=\3\19\0025\3\20\0=\3\21\0025\3\22\0=\3\23\2B\0\2\1K\0\1\0\19preview_config\1\0\5\nstyle\fminimal\rrelative\vcursor\bcol\3\1\vborder\vsingle\brow\3\0\28current_line_blame_opts\1\0\5\14virt_text\2\23virt_text_priority\3d\22ignore_whitespace\1\ndelay\3è\a\18virt_text_pos\beol\17watch_gitdir\1\0\1\17follow_files\2\nsigns\1\0\15\nsigns\0\28current_line_blame_opts\0\23current_line_blame\1\24attach_to_untracked\2\nnumhl\1\17watch_gitdir\0\14word_diff\1\vlinehl\1\15signcolumn\2\18sign_priority\3\6\20update_debounce\3d!current_line_blame_formatter1<author>, <author_time:%Y-%m-%d> - <summary>\5\0\20max_file_length\3À¸\2\19preview_config\0\14untracked\1\0\1\ttext\bâ”†\17changedelete\1\0\1\ttext\6~\14topdelete\1\0\1\ttext\bâ€¾\vdelete\1\0\1\ttext\6_\vchange\1\0\1\ttext\bâ”‚\badd\1\0\6\vchange\0\17changedelete\0\14untracked\0\vdelete\0\14topdelete\0\badd\0\1\0\1\ttext\bâ”‚\nsetup\rgitsigns\frequire\0", "config", "gitsigns.nvim")
+time([[Config for gitsigns.nvim]], false)
 -- Config for: Comment.nvim
 time([[Config for Comment.nvim]], true)
 try_loadstring("\27LJ\2\n5\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\fComment\frequire\0", "config", "Comment.nvim")
@@ -267,10 +271,6 @@ time([[Config for Comment.nvim]], false)
 time([[Config for nvim-surround]], true)
 try_loadstring("\27LJ\2\n?\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\18nvim-surround\frequire\0", "config", "nvim-surround")
 time([[Config for nvim-surround]], false)
--- Config for: gitsigns.nvim
-time([[Config for gitsigns.nvim]], true)
-try_loadstring("\27LJ\2\n¶\6\0\0\5\0\24\0\0276\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\16\0005\3\4\0005\4\3\0=\4\5\0035\4\6\0=\4\a\0035\4\b\0=\4\t\0035\4\n\0=\4\v\0035\4\f\0=\4\r\0035\4\14\0=\4\15\3=\3\17\0025\3\18\0=\3\19\0025\3\20\0=\3\21\0025\3\22\0=\3\23\2B\0\2\1K\0\1\0\19preview_config\1\0\5\nstyle\fminimal\bcol\3\1\rrelative\vcursor\vborder\vsingle\brow\3\0\28current_line_blame_opts\1\0\5\ndelay\3è\a\18virt_text_pos\beol\14virt_text\2\23virt_text_priority\3d\22ignore_whitespace\1\17watch_gitdir\1\0\1\17follow_files\2\nsigns\1\0\15\14word_diff\1\vlinehl\1\nnumhl\1\18sign_priority\3\6\15signcolumn\2!current_line_blame_formatter1<author>, <author_time:%Y-%m-%d> - <summary>\20update_debounce\3d\21status_formatter\0\20max_file_length\3À¸\2\19preview_config\0\nsigns\0\28current_line_blame_opts\0\23current_line_blame\1\24attach_to_untracked\2\17watch_gitdir\0\14untracked\1\0\1\ttext\bâ”†\17changedelete\1\0\1\ttext\6~\14topdelete\1\0\1\ttext\bâ€¾\vdelete\1\0\1\ttext\6_\vchange\1\0\1\ttext\bâ”‚\badd\1\0\6\14untracked\0\badd\0\vdelete\0\vchange\0\17changedelete\0\14topdelete\0\1\0\1\ttext\bâ”‚\nsetup\rgitsigns\frequire\0", "config", "gitsigns.nvim")
-time([[Config for gitsigns.nvim]], false)
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Event lazy-loads

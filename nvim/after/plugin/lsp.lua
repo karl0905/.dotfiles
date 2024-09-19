@@ -4,7 +4,7 @@ lsp.preset("recommended")
 
 lsp.ensure_installed({
   'rust_analyzer', -- Rust Language Server
-  'tsserver',      -- TypeScript Language Server
+  'ts_ls',      -- TypeScript Language Server
 })
 
 require('mason').setup({
@@ -18,12 +18,12 @@ require('mason').setup({
     'prettier',
     'rust_analyzer',
     'tailwindcss',
-    'tsserver',
+    'ts_ls',
     'sqls',
   },
 })
 
-require'lspconfig'.emmet_ls.setup {
+require 'lspconfig'.emmet_ls.setup {
   capabilities = {
     textDocument = {
       completion = {
@@ -33,7 +33,7 @@ require'lspconfig'.emmet_ls.setup {
       },
     },
   },
-  filetypes = { "html", "css", "javascript", "typescript", "javascriptreact", "typescriptreact" }, 
+  filetypes = { "html", "css", "javascript", "typescript", "javascriptreact", "typescriptreact" },
 }
 
 -- Setup vim-dadbod for SQL completion
