@@ -20,6 +20,7 @@ require('mason').setup({
     'tailwindcss',
     'tsserver',
     'sqls',
+    'black',
   },
 })
 
