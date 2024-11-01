@@ -4,7 +4,7 @@ lsp.preset("recommended")
 
 lsp.ensure_installed({
   'rust_analyzer', -- Rust Language Server
-  'tsserver',      -- TypeScript Language Server
+  'ts_ls',      -- TypeScript Language Server
 })
 
 require('mason').setup({
@@ -18,7 +18,7 @@ require('mason').setup({
     'prettier',
     'rust_analyzer',
     'tailwindcss',
-    'tsserver',
+    'ts_ls',
     'sqls',
     'black',
   },
