@@ -20,6 +20,8 @@ require('mason').setup({
     'tailwindcss',
     'ts_ls',
     'sqls',
+    'black',
+    'pylsp',
   },
 })
 
