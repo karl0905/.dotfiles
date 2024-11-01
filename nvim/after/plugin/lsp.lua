@@ -21,6 +21,7 @@ require('mason').setup({
     'ts_ls',
     'sqls',
     'black',
+    'pylsp',
   },
 })
 
