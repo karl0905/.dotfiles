@@ -6,6 +6,7 @@
 !tmux/**/*
 !Brewfile
 !.zshrc
+!.wezterm.lua
 
 # Ignore tmux/plugins
 tmux/plugins/
