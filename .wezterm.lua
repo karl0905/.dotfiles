@@ -1,1 +1,1 @@
-.wezterm.lua
+/Users/karl/.wezterm.lua
