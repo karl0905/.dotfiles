@@ -22,3 +22,5 @@ source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 
 # You can add your personal aliases here
 # Example: alias ls='ls -G'
+
+alias ls="eza --icons=always"
