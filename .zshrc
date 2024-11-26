@@ -3,19 +3,23 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Opera path to enable opera commands
-export PATH="/Applications/Opera GX.app/Contents/MacOS:$PATH"
+# Set Powerlevel10k path based on OS
+if [[ "$(uname)" == "Darwin" ]]; then
+    # macOS-specific configurations
+    export POWERLEVEL10K_PATH="/opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme"
+    export PATH="/Applications/Opera GX.app/Contents/MacOS:$PATH"
+elif [[ "$(uname)" == "Linux" ]]; then
+    # WSL-specific configurations
+    export POWERLEVEL10K_PATH="/home/linuxbrew/.linuxbrew/opt/powerlevel10k/share/powerlevel10k/powerlevel10k.zsh-theme"
+fi
 
-# User configuration
-# You can add your custom configurations here
+if [[ -n "$POWERLEVEL10K_PATH" ]]; then
+    source "$POWERLEVEL10K_PATH"
+fi
 
-# NVM configuration
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# Powerlevel10k
-source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
