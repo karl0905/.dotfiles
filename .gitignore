@@ -7,6 +7,7 @@
 !Brewfile
 !.zshrc
 !.wezterm.lua
+!aerospace/**/*
 
 # Ignore tmux/plugins
 tmux/plugins/
