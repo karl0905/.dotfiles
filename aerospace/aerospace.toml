@@ -113,6 +113,7 @@ alt-5 = 'workspace 5'
 alt-6 = 'workspace 6'
 alt-7 = 'workspace 7'
 
+alt-d = 'workspace D'
 alt-s = 'workspace S'
 alt-p = 'workspace P'
 
@@ -125,6 +126,7 @@ alt-ctrl-5 = 'move-node-to-workspace 5'
 alt-ctrl-6 = 'move-node-to-workspace 6'
 alt-ctrl-7 = 'move-node-to-workspace 7'
 
+alt-ctrl-d = 'move-node-to-workspace D'
 alt-ctrl-s = 'move-node-to-workspace S'
 alt-ctrl-p = 'move-node-to-workspace P'
 
@@ -158,7 +160,7 @@ esc = 'mode main'
 t = ['exec-and-forget open -n /Applications/WezTerm.app', 'mode main'] # open Terminal
 p = ['exec-and-forget open -n /Applications/Postman.app', 'mode main'] # open Postman
 b = ['exec-and-forget open -n /Applications/Zen Browser.app', 'mode main'] # open browser
-s = ['exec-and-forget open -n /Applications/Spotify.app/', 'mode main'] # open Spotify
+s = ['exec-and-forget open -n /Applications/Spotify.app', 'mode main'] # open Spotify
 
 [[on-window-detected]]
 if.app-id = 'com.postmanlabs.mac'
