@@ -20,7 +20,7 @@
 
 # KARABINER
 !karabiner/
-!karabiner/**/*
+!karabiner/karabiner.json
 
 # Ignore tmux/plugins
 tmux/plugins/
