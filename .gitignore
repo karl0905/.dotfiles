@@ -2,12 +2,25 @@
 *
 
 # Except
-!nvim/**/*
-!tmux/**/*
 !Brewfile
 !.zshrc
 !.wezterm.lua
+
+# NVIM
+!nvim/
+!nvim/**/*
+
+# TMUX
+!tmus/
+!tmux/**/*
+
+# AEROSPACE
+!aerospace/
 !aerospace/**/*
+
+# KARABINER
+!karabiner/
+!karabiner/**/*
 
 # Ignore tmux/plugins
 tmux/plugins/
