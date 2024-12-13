@@ -22,6 +22,10 @@
 !karabiner/
 !karabiner/karabiner.json
 
+# BORDERS
+!borders/
+!borders/**/*
+
 # Ignore tmux/plugins
 tmux/plugins/
 nvim/plugin/packer_compiled.lua
