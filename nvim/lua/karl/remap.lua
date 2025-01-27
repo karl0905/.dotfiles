@@ -78,3 +78,6 @@ vim.keymap.set("n", "<leader>dr", "<Cmd>DB<CR>");
 vim.keymap.set("n", "<leader><leader>", function()
   vim.cmd("so")
 end)
+
+-- Yank whole file to clipboard
+vim.keymap.set("n", "<leader>yf", "<Cmd>:%y+<CR>");
