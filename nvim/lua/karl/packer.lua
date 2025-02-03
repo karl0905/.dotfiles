@@ -78,6 +78,14 @@ return require('packer').startup(function(use)
       require("nvim-autopairs").setup {}
     end
   }
+
+  -- vi-mongo.nvim 
+  use {
+    'kopecmaciej/vi-mongo.nvim',
+    config = function()
+        require('vi-mongo').setup()
+    end
+  }
   -- dadbod for SQL
   use 'tpope/vim-dadbod'
   use 'kristijanhusak/vim-dadbod-ui'
