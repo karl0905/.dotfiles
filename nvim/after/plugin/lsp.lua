@@ -20,7 +20,7 @@ require('mason').setup({
     'tailwindcss',
     'ts_ls',
     'sqls',
-    'black',
+    'jedi_language_server',
     'pylsp',
   },
 })
