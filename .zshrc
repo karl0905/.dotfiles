@@ -30,3 +30,4 @@ export NVM_DIR="$HOME/.nvm"
 # Example: alias ls='ls -G'
 
 alias ls="eza --icons=always"
+alias python="python3"
