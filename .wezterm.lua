@@ -15,8 +15,10 @@ if wezterm.target_triple:match("windows") then
     {
       name = 'WSL:Ubuntu',
       distribution = 'Ubuntu',
+      default_cwd = "~",
     },
   }
+  config.window_decorations = "TITLE | RESIZE"
   config.default_domain = 'WSL:Ubuntu'
   -- no padding on windows
   config.window_padding = {
@@ -27,13 +29,13 @@ if wezterm.target_triple:match("windows") then
   }
 elseif wezterm.target_triple:match("darwin") then
   config.macos_window_background_blur = 10
+  config.window_decorations = "RESIZE"
 end
 
 -- Common configuration options
 config.font = wezterm.font("Hack Nerd Font Mono")
 config.font_size = 14
 config.enable_tab_bar = false
-config.window_decorations = "RESIZE"
 config.color_scheme = "Tokyo Night"
 config.window_background_opacity = 0.97
 
