@@ -4,7 +4,7 @@ lsp.preset("recommended")
 
 lsp.ensure_installed({
   'rust_analyzer', -- Rust Language Server
-  'ts_ls',      -- TypeScript Language Server
+  'ts_ls',         -- TypeScript Language Server
 })
 
 require('mason').setup({
@@ -22,6 +22,14 @@ require('mason').setup({
     'sqls',
     'jedi_language_server',
     'pylsp',
+  },
+})
+
+local null_ls = require("null-ls")
+
+null_ls.setup({
+  sources = {
+    null_ls.builtins.formatting.prettierd,     -- use prettierd for formatting
   },
 })
 
