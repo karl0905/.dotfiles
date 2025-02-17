@@ -79,13 +79,17 @@ return require('packer').startup(function(use)
     end
   }
 
-  -- vi-mongo.nvim 
+  -- vi-mongo.nvim
   use {
     'kopecmaciej/vi-mongo.nvim',
     config = function()
-        require('vi-mongo').setup()
+      require('vi-mongo').setup()
     end
   }
+
+  -- none-ls
+  use 'nvimtools/none-ls.nvim'
+
   -- dadbod for SQL
   use 'tpope/vim-dadbod'
   use 'kristijanhusak/vim-dadbod-ui'
