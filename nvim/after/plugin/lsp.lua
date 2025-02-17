@@ -15,7 +15,7 @@ require('mason').setup({
     'html',
     'intelephense',
     'lua_ls',
-    'prettier',
+    'prettierd',
     'rust_analyzer',
     'tailwindcss',
     'ts_ls',
