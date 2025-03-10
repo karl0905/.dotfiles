@@ -7,16 +7,16 @@ require('mason').setup()
 -- Setup mason-lspconfig
 require('mason-lspconfig').setup({
   ensure_installed = {
-    'rust_analyzer',
-    'ts_ls',
-    'cssls',
-    'html',
-    'intelephense',
-    'lua_ls',
-    'tailwindcss',
-    'sqls',
-    'jedi_language_server',
-    'pylsp',
+    -- 'rust_analyzer',
+    -- 'ts_ls',
+    -- 'cssls',
+    -- 'html',
+    -- 'intelephense',
+    -- 'lua_ls',
+    -- 'tailwindcss',
+    -- 'sqls',
+    -- 'jedi_language_server',
+    -- 'pylsp'
   },
 })
 
@@ -46,8 +46,6 @@ require('lspconfig').sqls.setup {
     ]]
   end,
 }
-
-lsp.nvim_workspace()
 
 -- Setup cmp
 local cmp = require('cmp')
