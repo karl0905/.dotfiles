@@ -34,6 +34,7 @@ return require('packer').startup(function(use)
       { 'neovim/nvim-lspconfig' },
       { 'williamboman/mason.nvim' },
       { 'williamboman/mason-lspconfig.nvim' },
+      { 'jay-babu/mason-null-ls.nvim'},
 
       -- Autocompletion
       { 'hrsh7th/nvim-cmp' },
@@ -89,6 +90,9 @@ return require('packer').startup(function(use)
 
   -- none-ls
   use 'nvimtools/none-ls.nvim'
+
+  -- vim-windowswap
+  use 'wesQ3/vim-windowswap'
 
   -- dadbod for SQL
   use 'tpope/vim-dadbod'
