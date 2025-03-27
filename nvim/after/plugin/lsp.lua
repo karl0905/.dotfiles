@@ -47,6 +47,27 @@ require('lspconfig').sqls.setup {
   end,
 }
 
+-- OmniSharp setup
+require('lspconfig').omnisharp.setup {
+  cmd = {
+    "dotnet",
+    vim.fn.stdpath("data") .. "/mason/packages/omnisharp/OmniSharp.dll",
+    "--languageserver",
+    "--hostPID",
+    tostring(vim.fn.getpid())
+  },
+  root_dir = require('lspconfig').util.root_pattern("*.sln", "*.csproj", "omnisharp.json", "Directory.Build.props"),
+  settings = {
+    FormattingOptions = {
+      EnableEditorConfigSupport = true
+    },
+    RoslynExtensionsOptions = {
+      EnableAnalyzersSupport = true,
+      EnableImportCompletion = true
+    }
+  }
+}
+
 -- Setup cmp
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
