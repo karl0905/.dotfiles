@@ -31,3 +31,5 @@ export NVM_DIR="$HOME/.nvm"
 
 alias ls="eza --icons=always"
 alias python="python3"
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+export PATH="/opt/homebrew/lib/ruby/gems/3.4.0/bin:$PATH"
