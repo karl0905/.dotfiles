@@ -15,8 +15,22 @@ M.setup = function()
       },
       cache_enabled = 0,
     }
+  elseif vim.fn.has('mac') == 1 then
+    -- macOS specific clipboard setup
+    vim.g.clipboard = {
+      name = 'macOS-clipboard',
+      copy = {
+        ['+'] = 'pbcopy',
+        ['*'] = 'pbcopy',
+      },
+      paste = {
+        ['+'] = 'pbpaste',
+        ['*'] = 'pbpaste',
+      },
+      cache_enabled = 0,
+    }
   else
-    -- macOS/Linux clipboard setup using OSC52
+    -- Linux and other systems
     vim.g.clipboard = {
       name = 'OSC 52',
       copy = {
