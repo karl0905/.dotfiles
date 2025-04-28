@@ -31,8 +31,35 @@ require('mason-lspconfig').setup({
         }
       })
     end,
-  },
+    -- Configure ESLint LSP if you want to use it - helpful for integrated IDE-like experience
+    ["eslint"] = function()
+      require('lspconfig').eslint.setup({
+        settings = {
+          format = true,
+        },
+        on_attach = function(client, bufnr)
+          client.server_capabilities.documentFormattingProvider = true
 
+          -- Optional: auto-fix on save
+          vim.api.nvim_create_autocmd("BufWritePre", {
+            buffer = bufnr,
+            command = "EslintFixAll",
+          })
+        end,
+      })
+    end,
+  },
+})
+
+-- Fix for Copilot Tab completion from paste.txt
+local cmp = require('cmp')
+local cmp_mappings = lsp.defaults.cmp_mappings()
+-- Remove Tab from cmp completely to reserve it for Copilot
+cmp_mappings['<Tab>'] = nil
+cmp_mappings['<S-Tab>'] = nil
+-- Set up cmp with our modified mappings
+lsp.setup_nvim_cmp({
+  mapping = cmp_mappings
 })
 
 -- Standard LSP keybindings
@@ -48,8 +75,6 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
   vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
   vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-
-  print("LSP started: " .. client.name)
 end)
 
 -- Simple diagnostic icons
@@ -74,30 +99,78 @@ vim.diagnostic.config({
   severity_sort = true,
 })
 
--- Setup none-ls/null-ls for formatters like Prettier
+-- Setup none-ls/null-ls for formatters
 local has_null_ls, null_ls = pcall(require, "null-ls")
 if has_null_ls then
+  local sources = {}
+
+  -- First check if the prettierd formatter is available
+  pcall(function()
+    table.insert(sources, null_ls.builtins.formatting.prettierd.with({
+      filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact", "css", "scss", "html", "json", "yaml", "markdown", "graphql" },
+      -- Only use prettier when no ESLint config is found
+      condition = function(utils)
+        return not utils.root_has_file({
+          '.eslintrc',
+          '.eslintrc.js',
+          '.eslintrc.json',
+          '.eslintrc.yaml',
+          '.eslintrc.yml',
+        })
+      end,
+    }))
+  end)
+
+  -- Try to safely add eslint_d diagnostics (but not formatting yet)
+  pcall(function()
+    -- Only add eslint_d diagnostics if the builtin exists
+    local has_eslint_d_diag = false
+    for name, _ in pairs(null_ls.builtins.diagnostics) do
+      if name == "eslint_d" then
+        has_eslint_d_diag = true
+        break
+      end
+    end
+
+    if has_eslint_d_diag then
+      table.insert(sources, null_ls.builtins.diagnostics.eslint_d.with({
+        condition = function(utils)
+          return utils.root_has_file({
+            '.eslintrc',
+            '.eslintrc.js',
+            '.eslintrc.json',
+            '.eslintrc.yaml',
+            '.eslintrc.yml',
+          })
+        end,
+      }))
+    end
+  end)
+
+  -- Setup null-ls with our safe sources
   null_ls.setup({
-    sources = {
-      -- Add the formatters you have installed with Mason
-      null_ls.builtins.formatting.prettierd.with({
-        filetypes = { "javascript", "typescript", "css", "scss", "html", "json", "yaml", "markdown", "graphql" },
-      }),
-      -- Add more formatters as needed
-    }
+    sources = sources
   })
 
-  -- Setup Mason integration with null-ls if available
+  -- Minimal mason-null-ls setup to avoid errors
   pcall(function()
     require("mason-null-ls").setup({
-      automatic_installation = true,
+      automatic_setup = true,
     })
   end)
 else
   -- Fallback if null-ls is not installed
-  vim.notify("For formatting with Prettier, please install null-ls: use 'jose-elias-alvarez/null-ls.nvim'",
+  vim.notify("For formatting with Prettier, please install null-ls: use 'nvimtools/none-ls.nvim'",
     vim.log.levels.INFO)
 end
+
+-- Format command with intelligent source selection
+vim.api.nvim_create_user_command('Format', function()
+  -- Format using available providers
+  vim.lsp.buf.format({
+    async = true,
+  })
+end, {})
 
 -- Commands to check LSP status
 vim.api.nvim_create_user_command('LspAttachInfo', function()
@@ -114,7 +187,20 @@ vim.api.nvim_create_user_command('LspAttachInfo', function()
   end
 end, {})
 
--- Format command that works with both LSP and null-ls
-vim.api.nvim_create_user_command('Format', function()
-  vim.lsp.buf.format({ async = true })
+-- Command to check available null-ls builtins
+vim.api.nvim_create_user_command('NullLsInfo', function()
+  if not has_null_ls then
+    print("null-ls is not available")
+    return
+  end
+
+  print("Available null-ls formatters:")
+  for name, _ in pairs(null_ls.builtins.formatting) do
+    print("- " .. name)
+  end
+
+  print("\nAvailable null-ls diagnostics:")
+  for name, _ in pairs(null_ls.builtins.diagnostics) do
+    print("- " .. name)
+  end
 end, {})
