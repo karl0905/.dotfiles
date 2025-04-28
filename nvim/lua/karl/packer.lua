@@ -34,7 +34,7 @@ return require('packer').startup(function(use)
       { 'neovim/nvim-lspconfig' },
       { 'williamboman/mason.nvim' },
       { 'williamboman/mason-lspconfig.nvim' },
-      { 'jay-babu/mason-null-ls.nvim'},
+      { 'jay-babu/mason-null-ls.nvim' },
 
       -- Autocompletion
       { 'hrsh7th/nvim-cmp' },
@@ -94,6 +94,24 @@ return require('packer').startup(function(use)
   -- vim-windowswap
   use 'wesQ3/vim-windowswap'
 
+  -- neotest
+  use {
+    "nvim-neotest/neotest",
+    requires = {
+      "olimorris/neotest-rspec",
+      "nvim-neotest/nvim-nio",
+      "nvim-lua/plenary.nvim",
+      "antoinemadec/FixCursorHold.nvim",
+      "nvim-treesitter/nvim-treesitter"
+    },
+    config = function()
+      require("neotest").setup({
+        adapters = {
+          require("neotest-rspec"),
+        }
+      })
+    end
+  }
   -- dadbod for SQL
   use 'tpope/vim-dadbod'
   use 'kristijanhusak/vim-dadbod-ui'
