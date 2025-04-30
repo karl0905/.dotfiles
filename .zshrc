@@ -36,3 +36,23 @@ alias python="python3"
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
 export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
+
+# Git configuration
+
+# Get the current git branch name
+get_git_branch() {
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/ '
+}
+# Get the remote URL of the current git repository
+get_git_remote_url() {
+  git config --get remote.origin.url | sed -e "s/:/\//" | sed -e "s/git@/https:\/\//" | sed -e "s/\.git$//"
+}
+# Push current branch to remote and set upstream
+git_push_set_upstream() {
+  git push --set-upstream origin $(get_git_branch)
+}
+# Open GitHub pull request page for the current branch
+git_pull_request() {
+  open "$(get_git_remote_url)/compare/main...$(get_git_branch)?expand=1"
+}
+alias gppr="git_push_set_upstream && git_pull_request"
