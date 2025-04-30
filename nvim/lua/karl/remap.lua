@@ -84,3 +84,6 @@ end)
 
 -- Yank whole file to clipboard
 vim.keymap.set("n", "<leader>yf", "<Cmd>:%y+<CR>");
+
+-- Open floating linter window
+vim.keymap.set("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>")
