@@ -26,18 +26,16 @@ export NVM_DIR="$HOME/.nvm"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# You can add your personal aliases here
-# Example: alias ls='ls -G'
+################### EXPORTS ######################
 
-alias ls="eza --icons=always"
-alias python="python3"
+export EDITOR="nvim"
+export VISUAL="nvim"
 
-. /opt/homebrew/opt/asdf/libexec/asdf.sh
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
-
 export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
 
-# Git configuration
+#################### GIT #########################
 
 # Get the current git branch name
 get_git_branch() {
@@ -55,4 +53,10 @@ git_push_set_upstream() {
 git_pull_request() {
   open "$(get_git_remote_url)/compare/main...$(get_git_branch)?expand=1"
 }
+
+#################### ALIAS #######################
+
+alias ls="eza --icons=always"
+alias python="python3"
 alias gppr="git_push_set_upstream && git_pull_request"
+alias gpsu="git_push_set_upstream"
