@@ -57,6 +57,8 @@ local cmp_mappings = lsp.defaults.cmp_mappings()
 -- Remove Tab from cmp completely to reserve it for Copilot
 cmp_mappings['<Tab>'] = nil
 cmp_mappings['<S-Tab>'] = nil
+-- Add Ctrl+Space to trigger completion
+cmp_mappings['<C-Space>'] = cmp.mapping.complete()
 -- Set up cmp with our modified mappings
 lsp.setup_nvim_cmp({
   mapping = cmp_mappings
