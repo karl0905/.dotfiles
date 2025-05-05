@@ -43,7 +43,7 @@ get_git_branch() {
 }
 # Get the remote URL of the current git repository
 get_git_remote_url() {
-  git config --get remote.origin.url | sed -e "s/:/\//" | sed -e "s/git@/https:\/\//" | sed -e "s/\.git$//"
+  git config --get remote.origin.url | sed -e 's|^git@\(.*\):\(.*\)$|https://\1/\2|' -e 's|\.git$||'
 }
 # Push current branch to remote and set upstream
 git_push_set_upstream() {
