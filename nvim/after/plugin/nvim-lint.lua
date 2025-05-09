@@ -7,13 +7,16 @@ lint.linters_by_ft = {
 	svelte = { "eslint_d" },
 	css = { "stylelint" },
 	html = { "htmlhint" },
-	json = { "biome" },
+	json = { "jsonlint" },
 	yaml = { "yamllint" },
 	markdown = { "markdownlint" },
 	graphql = { "eslint_d" },
 	lua = { "luacheck" },
-	python = { "pylint" },
+	python = { "ruff" },
 	ruby = { "rubocop" },
+	csharp = { "ast_grep" },
+	sh = { "shellcheck" },
+	bash = { "shellcheck" },
 }
 
 local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })

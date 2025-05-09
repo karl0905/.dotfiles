@@ -28,11 +28,30 @@ return require("packer").startup(function(use)
 	use("mbbill/undotree")
 	use("tpope/vim-fugitive")
 
-	use({ "neovim/nvim-lspconfig" })
-	use({ "williamboman/mason.nvim" })
-	use({ "williamboman/mason-lspconfig.nvim" })
-	use({ "stevearc/conform.nvim" })
-	use({ "mfussenegger/nvim-lint" })
+	-- LSP
+	use("williamboman/mason.nvim")
+	use("williamboman/mason-lspconfig.nvim")
+	use("neovim/nvim-lspconfig")
+	use("hrsh7th/cmp-nvim-lsp")
+	use({
+		"antosha417/nvim-lsp-file-operations",
+		config = function()
+			require("lsp-file-operations").setup()
+		end,
+	})
+	use({
+		"folke/neodev.nvim",
+		config = function()
+			require("neodev").setup({})
+		end,
+	})
+	use("WhoIsSethDaniel/mason-tool-installer")
+
+	-- Formatter
+	use("stevearc/conform.nvim")
+
+	-- Linting
+	use("mfussenegger/nvim-lint")
 
 	-- Autocompletion and snippets
 	use("hrsh7th/nvim-cmp")
@@ -81,9 +100,6 @@ return require("packer").startup(function(use)
 			require("vi-mongo").setup()
 		end,
 	})
-
-	-- none-ls
-	use("nvimtools/none-ls.nvim")
 
 	-- vim-windowswap
 	use("wesQ3/vim-windowswap")
