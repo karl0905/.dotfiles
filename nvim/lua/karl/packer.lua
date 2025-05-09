@@ -29,7 +29,8 @@ return require('packer').startup(function(use)
   use { 'neovim/nvim-lspconfig' }
   use { 'williamboman/mason.nvim' }
   use { 'williamboman/mason-lspconfig.nvim' }
-  use { 'jay-babu/mason-null-ls.nvim' }
+  use { 'stevearc/conform.nvim' }
+  use { 'mfussenegger/nvim-lint' }
 
   -- Autocompletion
   use { 'hrsh7th/nvim-cmp' }
