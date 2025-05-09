@@ -33,7 +33,14 @@ export VISUAL="nvim"
 
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
-. /opt/homebrew/opt/asdf/libexec/asdf.sh
+# Load ASDF based on OS
+if [[ "$(uname)" == "Darwin" ]]; then
+    # macOS ASDF initialization
+    . /opt/homebrew/opt/asdf/libexec/asdf.sh
+elif [[ "$(uname)" == "Linux" ]]; then
+    # Linux ASDF initialization
+    . /home/linuxbrew/.linuxbrew/opt/asdf/libexec/asdf.sh
+fi
 
 #################### GIT #########################
 
