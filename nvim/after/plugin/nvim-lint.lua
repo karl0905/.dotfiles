@@ -11,7 +11,7 @@ lint.linters_by_ft = {
 	yaml = { "yamllint" },
 	markdown = { "markdownlint" },
 	graphql = { "eslint_d" },
-	lua = { "selene" },
+	lua = { "luacheck" },
 	python = { "pylint" },
 	ruby = { "rubocop" },
 }
