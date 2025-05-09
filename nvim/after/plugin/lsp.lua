@@ -1,98 +1,95 @@
--- Simple LSP configuration with formatting support
-
--- Setup Mason package manager
 require('mason').setup()
 
--- Setup LSP with sensible defaults
-local lsp = require('lsp-zero').preset("recommended")
+-- Add cmp_nvim_lsp capabilities to lspconfig defaults
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+local lspconfig = require("lspconfig")
 
--- Setup mason-lspconfig to automatically handle servers
-require('mason-lspconfig').setup({
-  automatic_installation = true,
-  handlers = {
-    lsp.default_setup,
-    ["lua_ls"] = function()
-      require('lspconfig').lua_ls.setup({
-        settings = {
-          Lua = {
-            diagnostics = {
-              -- Recognize the `vim` global
-              globals = { 'vim' }
-            },
-            workspace = {
-              -- Make the server aware of Neovim runtime files
-              library = vim.api.nvim_get_runtime_file("", true),
-              checkThirdParty = false
-            },
-            completion = {
-              callSnippet = "Replace"
-            }
-          }
-        }
-      })
-    end,
-    -- Configure ESLint LSP if you want to use it - helpful for integrated IDE-like experience
-    ["eslint"] = function()
-      require('lspconfig').eslint.setup({
-        settings = {
-          format = true,
-        },
-        on_attach = function(client, bufnr)
-          client.server_capabilities.documentFormattingProvider = true
-
-          -- Optional: auto-fix on save
-          vim.api.nvim_create_autocmd("BufWritePre", {
-            buffer = bufnr,
-            command = "EslintFixAll",
-          })
-        end,
-      })
-    end,
+-- Configure lua_ls separately
+lspconfig.lua_ls.setup({
+  capabilities = capabilities,
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { "vim" },
+      },
+      workspace = {
+        library = vim.api.nvim_get_runtime_file("", true),
+        checkThirdParty = false,
+      },
+      completion = {
+        callSnippet = "Replace",
+      },
+    },
   },
 })
 
--- Fix for Copilot Tab completion from paste.txt
-local cmp = require('cmp')
-local cmp_mappings = lsp.defaults.cmp_mappings()
--- Remove Tab from cmp completely to reserve it for Copilot
-cmp_mappings['<Tab>'] = nil
-cmp_mappings['<S-Tab>'] = nil
--- Add Ctrl+Space to trigger completion
-cmp_mappings['<C-Space>'] = cmp.mapping.complete()
--- Set up cmp with our modified mappings
-lsp.setup_nvim_cmp({
-  mapping = cmp_mappings
+-- Mason-lspconfig for LSP servers only
+require('mason-lspconfig').setup({
+  ensure_installed = {
+    "eslint",
+    "marksman",
+    "ts_ls",
+    "tailwindcss",
+    "ruby_lsp",
+    "omnisharp",
+    "sqls",
+    "jedi_language_server",
+    "pyright",
+    "jsonls",
+    "lua_ls",
+  },
+  automatic_installation = true,
+  automatic_enable = true,
 })
 
--- Standard LSP keybindings
-lsp.on_attach(function(client, bufnr)
-  local opts = { buffer = bufnr, remap = false }
-
-  vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
-  vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
-  vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
-  vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
-  vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
-  vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
-  vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
-  vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
-  vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-end)
-
--- Simple diagnostic icons
-lsp.set_preferences({
-  sign_icons = {
-    error = 'E',
-    warn = 'W',
-    hint = 'H',
-    info = 'I'
-  }
+-- Mason-null-ls for formatters and linters
+require("mason-null-ls").setup({
+  ensure_installed = {
+    "prettierd",
+    "eslint_d",
+  },
+  automatic_installation = true,
 })
 
--- Initialize LSP
-lsp.setup()
+-- Fix for Copilot Tab completion
+local cmp = require("cmp")
+cmp.setup({
+  mapping = {
+    -- Remove Tab from cmp to reserve it for Copilot
+    ["<Tab>"] = nil,
+    ["<S-Tab>"] = nil,
+    -- Add Ctrl+Space to trigger completion
+    ["<C-Space>"] = cmp.mapping.complete(),
+    ["<CR>"] = cmp.mapping.confirm({ select = true }),
+    -- arrows
+    ['<Down>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+    ['<Up>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+  },
+  sources = {
+    { name = "nvim_lsp" },
+    { name = "buffer" },
+    { name = "path" },
+  },
+})
 
--- Configure diagnostics
+-- LSP keybindings
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(event)
+    local opts = { buffer = event.buf, remap = false }
+
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+    vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
+    vim.keymap.set("n", "[d", vim.diagnostic.goto_next, opts)
+    vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, opts)
+    vim.keymap.set("n", "<leader>vca", vim.lsp.buf.code_action, opts)
+    vim.keymap.set("n", "<leader>vrr", vim.lsp.buf.references, opts)
+    vim.keymap.set("n", "<leader>vrn", vim.lsp.buf.rename, opts)
+    vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
+  end
+})
+
+-- Basic diagnostic configuration
 vim.diagnostic.config({
   virtual_text = true,
   signs = true,
@@ -101,108 +98,73 @@ vim.diagnostic.config({
   severity_sort = true,
 })
 
--- Setup none-ls/null-ls for formatters
+vim.diagnostic.config({
+  virtual_text = true,
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = 'E',
+      [vim.diagnostic.severity.WARN] = 'W',
+      [vim.diagnostic.severity.HINT] = 'H',
+      [vim.diagnostic.severity.INFO] = 'I',
+    }
+  },
+  underline = true,
+  update_in_insert = false,
+  severity_sort = true,
+})
+
+-- Setup null-ls/none-ls for formatters safely
 local has_null_ls, null_ls = pcall(require, "null-ls")
 if has_null_ls then
   local sources = {}
 
   -- First check if the prettierd formatter is available
   pcall(function()
-    table.insert(sources, null_ls.builtins.formatting.prettierd.with({
-      filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact", "css", "scss", "html", "json", "yaml", "markdown", "graphql" },
-      -- Only use prettier when no ESLint config is found
-      condition = function(utils)
-        return not utils.root_has_file({
-          '.eslintrc',
-          '.eslintrc.js',
-          '.eslintrc.json',
-          '.eslintrc.yaml',
-          '.eslintrc.yml',
-        })
-      end,
-    }))
-  end)
-
-  -- Try to safely add eslint_d diagnostics (but not formatting yet)
-  pcall(function()
-    -- Only add eslint_d diagnostics if the builtin exists
-    local has_eslint_d_diag = false
-    for name, _ in pairs(null_ls.builtins.diagnostics) do
-      if name == "eslint_d" then
-        has_eslint_d_diag = true
-        break
-      end
-    end
-
-    if has_eslint_d_diag then
-      table.insert(sources, null_ls.builtins.diagnostics.eslint_d.with({
+    table.insert(
+      sources,
+      null_ls.builtins.formatting.prettierd.with({
+        filetypes = {
+          "javascript",
+          "typescript",
+          "javascriptreact",
+          "typescriptreact",
+          "css",
+          "scss",
+          "html",
+          "json",
+          "yaml",
+          "markdown",
+          "graphql",
+        },
+        -- Only use prettier when no ESLint config is found
         condition = function(utils)
-          return utils.root_has_file({
-            '.eslintrc',
-            '.eslintrc.js',
-            '.eslintrc.json',
-            '.eslintrc.yaml',
-            '.eslintrc.yml',
+          return not utils.root_has_file({
+            ".eslintrc",
+            ".eslintrc.js",
+            ".eslintrc.json",
+            ".eslintrc.yaml",
+            ".eslintrc.yml",
           })
         end,
-      }))
-    end
+      })
+    )
   end)
 
-  -- Setup null-ls with our safe sources
-  null_ls.setup({
-    sources = sources
-  })
+  -- Setup null-ls with safe sources
+  if #sources > 0 then
+    null_ls.setup({
+      sources = sources,
+    })
+  end
 
   -- Minimal mason-null-ls setup to avoid errors
   pcall(function()
     require("mason-null-ls").setup({
-      automatic_setup = true,
+      ensure_installed = {
+        "prettierd",
+        "eslint_d",
+      },
+      automatic_installation = true,
     })
   end)
-else
-  -- Fallback if null-ls is not installed
-  vim.notify("For formatting with Prettier, please install null-ls: use 'nvimtools/none-ls.nvim'",
-    vim.log.levels.INFO)
 end
-
--- Format command with intelligent source selection
-vim.api.nvim_create_user_command('Format', function()
-  -- Format using available providers
-  vim.lsp.buf.format({
-    async = true,
-  })
-end, {})
-
--- Commands to check LSP status
-vim.api.nvim_create_user_command('LspAttachInfo', function()
-  local buf = vim.api.nvim_get_current_buf()
-  local clients = vim.lsp.get_active_clients({ bufnr = buf })
-
-  if #clients == 0 then
-    print("No LSP clients attached to this buffer.")
-  else
-    print("LSP clients attached to this buffer:")
-    for _, client in ipairs(clients) do
-      print("- " .. client.name)
-    end
-  end
-end, {})
-
--- Command to check available null-ls builtins
-vim.api.nvim_create_user_command('NullLsInfo', function()
-  if not has_null_ls then
-    print("null-ls is not available")
-    return
-  end
-
-  print("Available null-ls formatters:")
-  for name, _ in pairs(null_ls.builtins.formatting) do
-    print("- " .. name)
-  end
-
-  print("\nAvailable null-ls diagnostics:")
-  for name, _ in pairs(null_ls.builtins.diagnostics) do
-    print("- " .. name)
-  end
-end, {})
