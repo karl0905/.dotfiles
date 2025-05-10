@@ -89,6 +89,50 @@ local server_settings = {
 		},
 	},
 
+	-- Ruby LSP configuration
+	ruby_lsp = {
+		init_options = {
+			formatter = "auto",
+			enabledFeatures = {
+				formatting = true,
+			},
+		},
+	},
+
+	omnisharp = {
+		cmd = {
+			"dotnet",
+			vim.fn.stdpath("data") .. "/mason/packages/omnisharp/OmniSharp.dll",
+			"--languageserver",
+			"--hostPID",
+			tostring(vim.fn.getpid()),
+		},
+		root_dir = require("lspconfig").util.root_pattern(
+			"*.sln",
+			"*.csproj",
+			"omnisharp.json",
+			"Directory.Build.props"
+		),
+		settings = {
+			FormattingOptions = {
+				EnableEditorConfigSupport = true,
+				OrganizeImports = true,
+			},
+			RoslynExtensionsOptions = {
+				EnableAnalyzersSupport = true,
+				EnableImportCompletion = true,
+			},
+			-- Unity-specific settings
+			MsBuild = {
+				EnableImportCompletion = true,
+				LoadProjectsOnDemand = true,
+			},
+			FileOptions = {
+				ExcludeSearchPatterns = { "**/obj/**", "**/bin/**" },
+				AnalyzeOpenDocumentsOnly = true,
+			},
+		},
+	},
 	-- Add more specific server settings as needed
 }
 
@@ -101,7 +145,6 @@ local default_config = {
 for _, server_name in ipairs(servers) do
 	-- Check if we have custom settings for this server
 	local config = vim.tbl_deep_extend("force", default_config, server_settings[server_name] or {})
-
 	lspconfig[server_name].setup(config)
 end
 

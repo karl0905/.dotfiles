@@ -14,10 +14,16 @@ conform.setup({
 		graphql = { "eslint_d" },
 		lua = { "stylua" },
 		python = { "isort", "ruff" },
-		ruby = { "rubocop" },
-		csharp = { "csharpier" },
+		cs = { "csharpier" },
 		sh = { "shfmt" },
 		bash = { "shfmt" },
+	},
+	formatters = {
+		csharpier = {
+			command = "csharpier",
+			args = { "format", "$FILENAME" },
+			stdin = false,
+		},
 	},
 	-- format_on_save = {
 	-- 	lsp_fallback = true,
@@ -28,7 +34,7 @@ conform.setup({
 
 vim.keymap.set({ "n", "v" }, "<leader>f", function()
 	conform.format({
-		lsp_fallback = false,
+		lsp_fallback = true,
 		async = false,
 		timeout_ms = 1000,
 	})

@@ -14,7 +14,6 @@ lint.linters_by_ft = {
 	lua = { "luacheck" },
 	python = { "ruff" },
 	ruby = { "rubocop" },
-	csharp = { "ast_grep" },
 	sh = { "shellcheck" },
 	bash = { "shellcheck" },
 }
