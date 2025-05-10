@@ -15,7 +15,8 @@ local servers = {
 	"graphql",
 	"emmet_ls",
 	"pyright",
-	"omnisharp",
+	-- "omnisharp",
+	"csharp_ls",
 	"ruby_lsp",
 	"eslint",
 	"marksman",
@@ -100,40 +101,43 @@ local server_settings = {
 		},
 	},
 
-	omnisharp = {
-		cmd = {
-			"dotnet",
-			vim.fn.stdpath("data") .. "/mason/packages/omnisharp/OmniSharp.dll",
-			"--languageserver",
-			"--hostPID",
-			tostring(vim.fn.getpid()),
-		},
-		root_dir = require("lspconfig").util.root_pattern(
-			"*.sln",
-			"*.csproj",
-			"omnisharp.json",
-			"Directory.Build.props"
-		),
-		settings = {
-			FormattingOptions = {
-				EnableEditorConfigSupport = true,
-				OrganizeImports = true,
-			},
-			RoslynExtensionsOptions = {
-				EnableAnalyzersSupport = true,
-				EnableImportCompletion = true,
-			},
-			-- Unity-specific settings
-			MsBuild = {
-				EnableImportCompletion = true,
-				LoadProjectsOnDemand = true,
-			},
-			FileOptions = {
-				ExcludeSearchPatterns = { "**/obj/**", "**/bin/**" },
-				AnalyzeOpenDocumentsOnly = true,
-			},
-		},
-	},
+	-- omnisharp = {
+	-- 	cmd = {
+	-- 		"dotnet",
+	-- 		vim.fn.stdpath("data") .. "/mason/packages/omnisharp/OmniSharp.dll",
+	-- 		"--languageserver",
+	-- 		"--hostPID",
+	-- 		tostring(vim.fn.getpid()),
+	-- 	},
+	-- 	root_dir = require("lspconfig").util.root_pattern(
+	-- 		"*.sln",
+	-- 		"*.csproj",
+	-- 		"omnisharp.json",
+	-- 		"Directory.Build.props",
+	-- 		"Assets", -- Unity-specific directory
+	-- 		"ProjectSettings" -- Unity-specific directory
+	-- 	),
+	-- 	settings = {
+	-- 		-- Unity-specific settings
+	-- 		MsBuild = {
+	-- 			UseLegacySdkResolver = true, -- Needed for Unity
+	-- 			EnableImportCompletion = true,
+	-- 			LoadProjectsOnDemand = true,
+	-- 		},
+	-- 		FileOptions = {
+	-- 			ExcludeSearchPatterns = { "**/obj/**", "**/bin/**", "**/Library/**", "**/Temp/**" }, -- Add Unity folders
+	-- 			AnalyzeOpenDocumentsOnly = false, -- Set to false for Unity
+	-- 		},
+	-- 		Sdk = {
+	-- 			IncludePrereleases = true,
+	-- 		},
+	-- 	},
+	-- 	on_attach = function(client, bufnr)
+	-- 		-- Unity-specific configuration can go here
+	-- 		client.server_capabilities.semanticTokensProvider = nil -- Disable semantic tokens for Unity projects
+	-- 	end,
+	-- },
+
 	-- Add more specific server settings as needed
 }
 
