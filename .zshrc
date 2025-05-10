@@ -44,6 +44,20 @@ fi
 
 # Add .NET Core SDK tools
 export PATH="$PATH:$HOME/.dotnet/tools"
+# Fix for dotnet tools in both WSL and macOS
+if [[ "$(uname)" == "Linux" ]]; then
+    # We're in Linux (WSL)
+    if [[ -d "/usr/share/dotnet" ]]; then
+        # Set .NET environment variables for WSL
+        export DOTNET_ROOT=/usr/share/dotnet
+        export PATH="$HOME/.dotnet/tools:$PATH"
+    fi
+elif [[ "$(uname)" == "Darwin" ]]; then
+    # We're in macOS
+    # macOS-specific dotnet config if needed
+    # Nothing needed here as it works already
+    true
+fi
 
 #################### GIT #########################
 
