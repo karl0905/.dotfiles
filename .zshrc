@@ -42,6 +42,9 @@ elif [[ "$(uname)" == "Linux" ]]; then
     . /home/linuxbrew/.linuxbrew/opt/asdf/libexec/asdf.sh
 fi
 
+# Add .NET Core SDK tools
+export PATH="$PATH:$HOME/.dotnet/tools"
+
 #################### GIT #########################
 
 # Get the current git branch name
