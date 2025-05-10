@@ -54,6 +54,7 @@ mason_tool_installer.setup({
 		"shfmt", -- Shell formatter
 
 		-- Linters
+		"jsonlint", -- JSON linter
 		"eslint_d", -- JS/TS linter
 		"luacheck", -- Lua linter
 		"pylint", -- Python linter
