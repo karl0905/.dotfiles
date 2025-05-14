@@ -78,6 +78,11 @@ git_pull_request() {
   open "$(get_git_remote_url)/compare/main...$(get_git_branch)?expand=1"
 }
 
+############### BINDS AND MODES ##################
+bindkey -v
+
+bindkey '^R' history-incremental-search-backward
+
 #################### ALIAS #######################
 
 alias ls="eza --icons=always"
