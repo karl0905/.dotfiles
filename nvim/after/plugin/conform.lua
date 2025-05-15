@@ -14,7 +14,6 @@ conform.setup({
 		graphql = { "eslint_d" },
 		lua = { "stylua" },
 		python = { "isort", "ruff" },
-		cs = { "csharpier" },
 		sh = { "shfmt" },
 		bash = { "shfmt" },
 	},

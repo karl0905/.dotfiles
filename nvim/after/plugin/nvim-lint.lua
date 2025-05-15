@@ -10,12 +10,12 @@ lint.linters_by_ft = {
 	json = { "jsonlint" },
 	yaml = { "yamllint" },
 	markdown = { "markdownlint" },
-	graphql = { "eslint_d" },
+	-- graphql = { "eslint_d" },
 	lua = { "luacheck" },
 	python = { "ruff" },
 	ruby = { "rubocop" },
-	sh = { "shellcheck" },
-	bash = { "shellcheck" },
+	-- sh = { "shellcheck" },
+	-- bash = { "shellcheck" },
 }
 
 local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })

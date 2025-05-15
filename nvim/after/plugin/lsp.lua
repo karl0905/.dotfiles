@@ -138,6 +138,15 @@ local server_settings = {
 	-- 	end,
 	-- },
 
+	csharp_ls = {
+		settings = {
+			csharp = {
+				format = {
+					enable = true,
+				},
+			},
+		},
+	},
 	-- Add more specific server settings as needed
 }
 
