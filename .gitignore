@@ -11,7 +11,7 @@
 !nvim/**/*
 
 # TMUX
-!tmus/
+!tmux/
 !tmux/**/*
 
 # KARABINER
@@ -24,6 +24,10 @@
 
 # Install scripts
 !mac-install.sh
+
+# RAYCAST 
+!raycast/
+!raycast/**/*
 
 # Ignore tmux/plugins
 tmux/plugins/
