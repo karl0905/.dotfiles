@@ -22,6 +22,9 @@
 !borders/
 !borders/**/*
 
+# Install scripts
+!mac-install.sh
+
 # Ignore tmux/plugins
 tmux/plugins/
 nvim/plugin/packer_compiled.lua
