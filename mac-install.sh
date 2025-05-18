@@ -5,7 +5,7 @@
 # 1. Install Homebrew if not already installed
 # 2. Install all dependencies from Brewfile
 # 3. Create necessary config directories
-# 4. Symlink all dotfiles to their appropriate locations
+# 4. Symlink files that should exist outside of .config
 # 5. Install additional components (NeoVim plugins, etc.)
 
 # Set colors for pretty output
@@ -50,16 +50,10 @@ create_symlink() {
   # Create directory if it doesn't exist
   mkdir -p "$(dirname "$dest")"
 
-  # Backup existing file/directory if it exists and is not a symlink
-  if [ -e "$dest" ] && [ ! -L "$dest" ]; then
-    local backup="${dest}.backup.$(date +%Y%m%d%H%M%S)"
-    log_warning "Backing up $dest to $backup"
-    mv "$dest" "$backup"
-  fi
-
-  # Remove existing symlink
-  if [ -L "$dest" ]; then
-    rm "$dest"
+  # If destination exists (file, directory, or symlink)
+  if [ -e "$dest" ] || [ -L "$dest" ]; then
+    log_warning "Removing existing $dest"
+    rm -rf "$dest"
   fi
 
   # Create symlink
@@ -110,83 +104,14 @@ install_brew_packages() {
 create_directories() {
   log_info "Creating required directories..."
 
-  # Create directories
+  # Create directories (these should already exist if cloned to .config)
   mkdir -p ~/.config/nvim
-
-  # Create directories for tmux
   mkdir -p ~/.config/tmux
   mkdir -p ~/.config/tmux/plugins
-
-  # Create directories for borders
   mkdir -p ~/.config/borders
-
-  # Create directories for karabiner
   mkdir -p ~/.config/karabiner
 
-  # Aerospace removed as requested
-
   log_success "Directories created"
-}
-
-# Setup NeoVim
-setup_neovim() {
-  log_info "Setting up NeoVim..."
-
-  # Symlink neovim config
-  create_symlink "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
-
-  # Install packer.nvim if not already installed
-  if [ ! -d "$HOME/.local/share/nvim/site/pack/packer/start/packer.nvim" ]; then
-    log_info "Installing packer.nvim..."
-    git clone --depth 1 https://github.com/wbthomason/packer.nvim \
-      ~/.local/share/nvim/site/pack/packer/start/packer.nvim
-  fi
-
-  # Install plugins
-  log_info "Installing NeoVim plugins (this may take a while)..."
-  # Use a more reliable approach to install plugins
-  nvim --headless -c 'lua require("karl.packer")' -c 'autocmd User PackerComplete quitall' -c 'PackerSync' || {
-    log_warning "Automatic plugin installation failed. This is normal on first run."
-    log_info "After installation completes, open NeoVim and run :PackerSync manually."
-  }
-
-  log_success "NeoVim setup complete"
-}
-
-# Setup tmux
-setup_tmux() {
-  log_info "Setting up tmux..."
-
-  # Symlink tmux config
-  create_symlink "$DOTFILES_DIR/tmux" "$HOME/.config/tmux"
-
-  # Install TPM (Tmux Plugin Manager) if not already installed
-  if [ ! -d "$HOME/.config/tmux/plugins/tpm" ]; then
-    log_info "Installing Tmux Plugin Manager..."
-    git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
-  fi
-
-  log_success "tmux setup complete"
-  log_info "Remember to press prefix + I inside tmux to install plugins"
-}
-
-# Setup other configuration files
-setup_other_configs() {
-  log_info "Setting up other configuration files..."
-
-  # WezTerm
-  create_symlink "$DOTFILES_DIR/.wezterm.lua" "$HOME/.wezterm.lua"
-
-  # Borders
-  create_symlink "$DOTFILES_DIR/borders/bordersrc" "$HOME/.config/borders/bordersrc"
-
-  # Karabiner
-  create_symlink "$DOTFILES_DIR/karabiner/karabiner.json" "$HOME/.config/karabiner/karabiner.json"
-
-  # ZSH
-  create_symlink "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
-
-  log_success "Other configurations set up successfully"
 }
 
 # Main installation function
@@ -200,23 +125,42 @@ main() {
   # Install packages from Brewfile
   install_brew_packages
 
-  # Create required directories
+  # Create required directories (if they don't exist)
   create_directories
 
-  # Setup NeoVim
-  setup_neovim
+  # Set up NeoVim
+  log_info "Setting up NeoVim configuration"
+  # Install packer.nvim if not already installed
+  if [ ! -d "$HOME/.local/share/nvim/site/pack/packer/start/packer.nvim" ]; then
+    log_info "Installing packer.nvim..."
+    git clone --depth 1 https://github.com/wbthomason/packer.nvim \
+      ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+  fi
 
-  # Setup tmux
-  setup_tmux
+  # Set up Tmux
+  log_info "Setting up tmux configuration"
+  # Install TPM (Tmux Plugin Manager) if not already installed
+  if [ ! -d "$HOME/.config/tmux/plugins/tpm" ]; then
+    log_info "Installing Tmux Plugin Manager..."
+    git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
+  fi
 
-  # Setup other configuration files
-  setup_other_configs
+  # Only symlink files that go outside of .config
+  log_info "Creating symbolic links for files outside of .config..."
+  create_symlink "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
+  create_symlink "$DOTFILES_DIR/p10k/.p10k.zsh" "$HOME/.p10k.zsh"
+  create_symlink "$DOTFILES_DIR/.wezterm.lua" "$HOME/.wezterm.lua"
+
+  # These may be redundant if borders and karabiner are already in .config
+  # but keeping them for clarity
+  create_symlink "$DOTFILES_DIR/borders/bordersrc" "$HOME/.config/borders/bordersrc"
+  create_symlink "$DOTFILES_DIR/karabiner/karabiner.json" "$HOME/.config/karabiner/karabiner.json"
 
   echo -e "\n${GREEN}=== Installation complete! ===${NC}"
   echo -e "${YELLOW}Notes:${NC}"
   echo -e "1. Remember to restart your terminal for changes to take effect"
   echo -e "2. For tmux, launch it and press ${YELLOW}prefix + I${NC} to install plugins"
-  echo -e "3. For NeoVim, you might need to run ${YELLOW}:PackerSync${NC} again inside NeoVim"
+  echo -e "3. For NeoVim, you might need to run ${YELLOW}:PackerSync${NC} manually inside NeoVim"
   echo -e "4. Some settings might require logout/login to take effect"
 }
 
