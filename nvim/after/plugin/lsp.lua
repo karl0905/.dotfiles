@@ -51,7 +51,6 @@ mason_tool_installer.setup({
 		"prettierd", -- JS/TS/CSS/HTML/JSON/YAML/Markdown formatter
 		"black", -- Python formatter
 		"isort", -- Python import formatter
-		"rubocop", -- Ruby formatter/linter
 		"shfmt", -- Shell formatter
 
 		-- Linters

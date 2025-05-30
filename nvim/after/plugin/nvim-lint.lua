@@ -13,7 +13,7 @@ lint.linters_by_ft = {
 	-- graphql = { "eslint_d" },
 	lua = { "luacheck" },
 	python = { "ruff" },
-	ruby = { "rubocop" },
+	-- ruby = { "rubocop" },
 	-- sh = { "shellcheck" },
 	-- bash = { "shellcheck" },
 }
