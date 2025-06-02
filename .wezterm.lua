@@ -39,6 +39,9 @@ config.enable_tab_bar = false
 config.color_scheme = "Tokyo Night"
 config.window_background_opacity = 0.97
 
+-- allow for left option to be used as a compose key
+config.use_dead_keys = false
+config.send_composed_key_when_left_alt_is_pressed = true
 
 -- Return the configuration to wezterm
 return config
