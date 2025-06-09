@@ -122,6 +122,28 @@ return require("packer").startup(function(use)
 			})
 		end,
 	})
+
+	-- Obsidian.nvim
+	use({
+		"epwalsh/obsidian.nvim",
+		tag = "*",
+		requires = {
+			"nvim-lua/plenary.nvim",
+		},
+	})
+
+	-- render-markdown.nvim
+	use({
+		"MeanderingProgrammer/render-markdown.nvim",
+		after = { "nvim-treesitter" },
+		-- requires = { "echasnovski/mini.nvim", opt = true }, -- if you use the mini.nvim suite
+		-- requires = { 'echasnovski/mini.icons', opt = true }, -- if you use standalone mini plugins
+		requires = { 'nvim-tree/nvim-web-devicons', opt = true }, -- if you prefer nvim-web-devicons
+		config = function()
+			require("render-markdown").setup({})
+		end,
+	})
+
 	-- dadbod for SQL
 	use("tpope/vim-dadbod")
 	use("kristijanhusak/vim-dadbod-ui")
