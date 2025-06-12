@@ -52,7 +52,6 @@ mason_tool_installer.setup({
 		"prettierd", -- JS/TS/CSS/HTML/JSON/YAML/Markdown formatter
 		"black", -- Python formatter
 		"isort", -- Python import formatter
-		"rubocop", -- Ruby formatter/linter
 		"shfmt", -- Shell formatter
 
 		-- Linters
@@ -92,30 +91,21 @@ local server_settings = {
 		},
 	},
 
-	-- Ruby LSP - only for NON-Sorbet projects
+	-- Ruby LSP configuration
 	ruby_lsp = {
-		autostart = false, -- Don't auto-start, we'll control it
 		init_options = {
 			formatter = "auto",
 			enabledFeatures = {
 				formatting = true,
 			},
 		},
-		root_dir = function(fname)
-			local util = require("lspconfig.util")
-			return util.root_pattern("Gemfile", ".git", ".ruby-version")(fname)
-		end,
 	},
 
-	-- Sorbet LSP - only for Sorbet projects
 	sorbet = {
-		autostart = false, -- Don't auto-start, we'll control it
 		cmd = { "srb", "tc", "--lsp" },
 		filetypes = { "ruby" },
-		root_dir = function(fname)
-			local util = require("lspconfig.util")
-			return util.root_pattern("sorbet/config")(fname)
-		end,
+		root_dir = require("lspconfig").util.root_pattern("sorbet/config"),
+		autostart = true,
 	},
 
 	-- omnisharp = {
@@ -178,27 +168,6 @@ for _, server_name in ipairs(servers) do
 	local config = vim.tbl_deep_extend("force", default_config, server_settings[server_name] or {})
 	lspconfig[server_name].setup(config)
 end
-
--- Auto-start the correct Ruby LSP based on project type
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = "ruby",
-	callback = function()
-		local util = require("lspconfig.util")
-		local fname = vim.api.nvim_buf_get_name(0)
-
-		-- Check if this is a Sorbet project
-		local sorbet_root = util.root_pattern("sorbet/config")(fname)
-		local ruby_root = util.root_pattern("Gemfile", ".git", ".ruby-version")(fname)
-
-		if sorbet_root then
-			-- Start Sorbet LSP
-			vim.cmd("LspStart sorbet")
-		elseif ruby_root then
-			-- Start Ruby LSP
-			vim.cmd("LspStart ruby_lsp")
-		end
-	end,
-})
 
 -- LSP keybindings
 vim.api.nvim_create_autocmd("LspAttach", {
