@@ -84,7 +84,13 @@ return require("packer").startup(function(use)
 	})
 	use("github/copilot.vim")
 	use("christoomey/vim-tmux-navigator")
-	use("preservim/nerdtree")
+	use({
+		"preservim/nerdtree",
+		requires = {
+			"ryanoasis/vim-devicons",
+			"bryanmylee/vim-colorscheme-icons",
+		},
+	})
 	use({
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
@@ -138,7 +144,7 @@ return require("packer").startup(function(use)
 		after = { "nvim-treesitter" },
 		-- requires = { "echasnovski/mini.nvim", opt = true }, -- if you use the mini.nvim suite
 		-- requires = { 'echasnovski/mini.icons', opt = true }, -- if you use standalone mini plugins
-		requires = { 'nvim-tree/nvim-web-devicons', opt = true }, -- if you prefer nvim-web-devicons
+		requires = { "nvim-tree/nvim-web-devicons", opt = true }, -- if you prefer nvim-web-devicons
 		config = function()
 			require("render-markdown").setup({})
 		end,
