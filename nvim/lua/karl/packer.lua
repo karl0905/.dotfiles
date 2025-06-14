@@ -138,7 +138,11 @@ return require("packer").startup(function(use)
 		},
 	})
 
-	-- render-markdown.nvim
+	-- snacks.nvim
+  -- this is a partial setup, add more tosnacks.lua
+  use("folke/snacks.nvim")
+
+  --render-markdown.nvim
 	use({
 		"MeanderingProgrammer/render-markdown.nvim",
 		after = { "nvim-treesitter" },
