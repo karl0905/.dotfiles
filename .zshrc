@@ -31,6 +31,8 @@ export NVM_DIR="$HOME/.nvm"
 export EDITOR="nvim"
 export VISUAL="nvim"
 
+export PATH="$HOME/.config/bin:$PATH"
+
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
 # Load ASDF based on OS
@@ -59,25 +61,6 @@ elif [[ "$(uname)" == "Darwin" ]]; then
     true
 fi
 
-#################### GIT #########################
-
-# Get the current git branch name
-get_git_branch() {
-  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/ '
-}
-# Get the remote URL of the current git repository
-get_git_remote_url() {
-  git config --get remote.origin.url | sed -e 's|^git@\(.*\):\(.*\)$|https://\1/\2|' -e 's|\.git$||'
-}
-# Push current branch to remote and set upstream
-git_push_set_upstream() {
-  git push --set-upstream origin $(get_git_branch)
-}
-# Open GitHub pull request page for the current branch
-git_pull_request() {
-  open "$(get_git_remote_url)/compare/main...$(get_git_branch)?expand=1"
-}
-
 ############### BINDS AND MODES ##################
 bindkey -v
 
@@ -87,8 +70,13 @@ bindkey '^R' history-incremental-search-backward
 
 alias ls="eza --icons=always"
 alias python="python3"
-alias gppr="git_push_set_upstream && git_pull_request"
-alias gpsu="git_push_set_upstream"
+alias gppr="git_pr.sh"
+alias gpsu="git_push_upstream.sh"
+alias gh="git_home.sh"
 alias gl="git log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+alias gpf="git push --force-with-lease"
+alias grbc="git rebase --continue"
 alias grep="rg"
+alias gco="git checkout"
+alias gs="git status"
 alias v="nvim"
