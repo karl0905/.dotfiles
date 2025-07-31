@@ -27,7 +27,7 @@
 
 # RAYCAST 
 !raycast/
-!raycast/**/*
+!raycast/*.rayconfig
 
 # P10K 
 !p10k/
