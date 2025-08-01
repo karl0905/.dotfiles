@@ -1,73 +1,84 @@
 {
-  "profiles": [
-    {
-      "complex_modifications": {
-        "parameters": {
-          "basic.to_if_alone_timeout_milliseconds": 150,
-          "basic.to_if_held_down_threshold_milliseconds": 200
-        },
-        "rules": [
-          {
-            "description": "Tab to Hyper Key (Tab when tapped, Hyper when held)",
-            "manipulators": [
-              {
-                "from": {
-                  "key_code": "tab",
-                  "modifiers": { "optional": ["any"] }
+    "profiles": [
+        {
+            "complex_modifications": {
+                "parameters": {
+                    "basic.to_if_alone_timeout_milliseconds": 150,
+                    "basic.to_if_held_down_threshold_milliseconds": 200
                 },
-                "parameters": { "basic.to_if_alone_timeout_milliseconds": 200 },
-                "to": [
-                  {
-                    "key_code": "left_shift",
-                    "modifiers": ["left_command", "left_control", "left_option"]
-                  }
-                ],
-                "to_if_alone": [{ "key_code": "tab" }],
-                "type": "basic"
-              }
-            ]
-          }
-        ]
-      },
-      "devices": [
-        {
-          "identifiers": {
-            "is_keyboard": true,
-            "product_id": 54,
-            "vendor_id": 9610
-          },
-          "simple_modifications": [
-            {
-              "from": { "key_code": "f6" },
-              "to": [{ "key_code": "vk_mission_control" }]
+                "rules": [
+                    {
+                        "description": "Caps Lock to Control/Escape (Escape when tapped, Control when held)",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "caps_lock",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "parameters": { "basic.to_if_alone_timeout_milliseconds": 200 },
+                                "to": [{ "key_code": "left_control" }],
+                                "to_if_alone": [{ "key_code": "escape" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Tab to Hyper Key (Tab when tapped, Hyper when held)",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "tab",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "parameters": { "basic.to_if_alone_timeout_milliseconds": 200 },
+                                "to": [
+                                    {
+                                        "key_code": "left_shift",
+                                        "modifiers": ["left_command", "left_control", "left_option"]
+                                    }
+                                ],
+                                "to_if_alone": [{ "key_code": "tab" }],
+                                "type": "basic"
+                            }
+                        ]
+                    }
+                ]
             },
-            {
-              "from": { "pointing_button": "button3" },
-              "to": [{ "mouse_key": { "vertical_wheel": 64 } }]
+            "devices": [
+                {
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "product_id": 54,
+                        "vendor_id": 9610
+                    },
+                    "simple_modifications": [
+                        {
+                            "from": { "key_code": "f6" },
+                            "to": [{ "key_code": "vk_mission_control" }]
+                        },
+                        {
+                            "from": { "pointing_button": "button3" },
+                            "to": [{ "mouse_key": { "vertical_wheel": 64 } }]
+                        }
+                    ]
+                }
+            ],
+            "name": "Ctrl Fn Caps Escape Swap",
+            "selected": true,
+            "simple_modifications": [
+                {
+                    "from": { "apple_vendor_top_case_key_code": "keyboard_fn" },
+                    "to": [{ "key_code": "left_control" }]
+                },
+                {
+                    "from": { "key_code": "left_control" },
+                    "to": [{ "apple_vendor_top_case_key_code": "keyboard_fn" }]
+                }
+            ],
+            "virtual_hid_keyboard": {
+                "country_code": 0,
+                "keyboard_type_v2": "ansi"
             }
-          ]
         }
-      ],
-      "name": "Ctrl Fn Caps Escape Swap",
-      "selected": true,
-      "simple_modifications": [
-        {
-          "from": { "key_code": "caps_lock" },
-          "to": [{ "key_code": "escape" }]
-        },
-        {
-          "from": { "apple_vendor_top_case_key_code": "keyboard_fn" },
-          "to": [{ "key_code": "left_control" }]
-        },
-        {
-          "from": { "key_code": "left_control" },
-          "to": [{ "apple_vendor_top_case_key_code": "keyboard_fn" }]
-        }
-      ],
-      "virtual_hid_keyboard": {
-        "country_code": 0,
-        "keyboard_type_v2": "ansi"
-      }
-    }
-  ]
+    ]
 }
