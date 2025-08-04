@@ -69,6 +69,7 @@ bindkey '^R' history-incremental-search-backward
 #################### ALIAS #######################
 
 alias ls="eza --icons=always"
+alias g="git"
 alias python="python3"
 alias gppr="git_pr.sh"
 alias gpsu="git_push_upstream.sh"
