@@ -139,10 +139,10 @@ return require("packer").startup(function(use)
 	})
 
 	-- snacks.nvim
-  -- this is a partial setup, add more tosnacks.lua
-  use("folke/snacks.nvim")
+	-- this is a partial setup, add more tosnacks.lua
+	use("folke/snacks.nvim")
 
-  --render-markdown.nvim
+	--render-markdown.nvim
 	use({
 		"MeanderingProgrammer/render-markdown.nvim",
 		after = { "nvim-treesitter" },
@@ -151,6 +151,15 @@ return require("packer").startup(function(use)
 		requires = { "nvim-tree/nvim-web-devicons", opt = true }, -- if you prefer nvim-web-devicons
 		config = function()
 			require("render-markdown").setup({})
+		end,
+	})
+
+	-- typst-preview.nvim
+	use({
+		"chomosuke/typst-preview.nvim",
+		tag = "v1.*",
+		config = function()
+			require("typst-preview").setup({})
 		end,
 	})
 
