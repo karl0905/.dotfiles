@@ -2,11 +2,11 @@ require("obsidian").setup({
 	workspaces = {
 		{
 			name = "personal",
-			path = "~/notes/personal",
+			path = "~/repos/notes/personal",
 		},
 		{
 			name = "landfolk",
-			path = "~/notes/landfolk",
+			path = "~/repos/notes/landfolk",
 		},
 	},
 	daily_notes = {
