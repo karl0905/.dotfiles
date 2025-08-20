@@ -16,7 +16,7 @@ conform.setup({
 		python = { "isort", "ruff" },
 		sh = { "shfmt" },
 		bash = { "shfmt" },
-    typst = { "prettypst" },
+    typst = { "typstyle" },
 	},
 	formatters = {
 		csharpier = {

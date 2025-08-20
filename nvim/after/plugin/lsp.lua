@@ -24,6 +24,7 @@ local servers = {
 	"jsonls",
 	"jedi_language_server",
 	"sqls",
+	"tinymist",
 }
 
 -- Enable mason and configure icons
