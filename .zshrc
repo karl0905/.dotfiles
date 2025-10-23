@@ -66,6 +66,27 @@ bindkey -v
 
 bindkey '^R' history-incremental-search-backward
 
+############### AUTO COMPLETION ##################
+# Initialize completion system
+autoload -Uz compinit
+compinit
+
+# Case-insensitive completion
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+
+# Menu selection for completions
+zstyle ':completion:*' menu select
+
+# ASDF completions
+fpath=(${ASDF_DIR}/completions $fpath)
+
+# Load zsh-completions
+if [[ "$(uname)" == "Darwin" ]]; then
+    FPATH=/opt/homebrew/share/zsh-completions:$FPATH
+elif [[ "$(uname)" == "Linux" ]]; then
+    FPATH=/home/linuxbrew/.linuxbrew/share/zsh-completions:$FPATH
+fi
+
 #################### ALIAS #######################
 
 alias ls="eza --icons=always"
