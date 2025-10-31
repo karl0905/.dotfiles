@@ -2,7 +2,6 @@
 local mason = require("mason")
 local mason_lspconfig = require("mason-lspconfig")
 local mason_tool_installer = require("mason-tool-installer")
-local lspconfig = require("lspconfig")
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
 -- Define all servers we want to use
@@ -92,23 +91,6 @@ local server_settings = {
 		},
 	},
 
-	-- Ruby LSP configuration
-	ruby_lsp = {
-		init_options = {
-			formatter = "auto",
-			enabledFeatures = {
-				formatting = true,
-			},
-		},
-	},
-
-	sorbet = {
-		cmd = { "srb", "tc", "--lsp" },
-		filetypes = { "ruby" },
-		root_dir = require("lspconfig").util.root_pattern("sorbet/config"),
-		autostart = true,
-	},
-
 	-- omnisharp = {
 	-- 	cmd = {
 	-- 		"dotnet",
@@ -117,14 +99,7 @@ local server_settings = {
 	-- 		"--hostPID",
 	-- 		tostring(vim.fn.getpid()),
 	-- 	},
-	-- 	root_dir = require("lspconfig").util.root_pattern(
-	-- 		"*.sln",
-	-- 		"*.csproj",
-	-- 		"omnisharp.json",
-	-- 		"Directory.Build.props",
-	-- 		"Assets", -- Unity-specific directory
-	-- 		"ProjectSettings" -- Unity-specific directory
-	-- 	),
+	-- 	root_dir = vim.fs.root(0, {"*.sln", "*.csproj", "omnisharp.json", "Directory.Build.props", "Assets", "ProjectSettings"}),
 	-- 	settings = {
 	-- 		-- Unity-specific settings
 	-- 		MsBuild = {
@@ -163,11 +138,19 @@ local default_config = {
 	capabilities = capabilities,
 }
 
--- Setup all servers with respective configurations
+-- Configure and enable all servers
 for _, server_name in ipairs(servers) do
 	-- Check if we have custom settings for this server
-	local config = vim.tbl_deep_extend("force", default_config, server_settings[server_name] or {})
-	lspconfig[server_name].setup(config)
+	local custom_settings = server_settings[server_name] or {}
+	local config = vim.tbl_deep_extend("force", default_config, custom_settings)
+	
+	-- Configure the server if it has custom settings
+	if server_settings[server_name] then
+		vim.lsp.config(server_name, config)
+	end
+	
+	-- Enable the server
+	vim.lsp.enable(server_name)
 end
 
 -- LSP keybindings
