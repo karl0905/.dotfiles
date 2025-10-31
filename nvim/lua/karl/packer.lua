@@ -219,4 +219,8 @@ return require("packer").startup(function(use)
 			})
 		end,
 	})
+
+  -- vimgolf
+  use("vuciv/golf")
+
 end)
