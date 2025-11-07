@@ -91,6 +91,10 @@ local server_settings = {
 		},
 	},
 
+	sorbet = {
+		cmd = { "env", "MallocStackLogging=0", "MallocScribble=0", "srb", "tc", "--lsp" },
+	},
+
 	-- omnisharp = {
 	-- 	cmd = {
 	-- 		"dotnet",
@@ -143,12 +147,12 @@ for _, server_name in ipairs(servers) do
 	-- Check if we have custom settings for this server
 	local custom_settings = server_settings[server_name] or {}
 	local config = vim.tbl_deep_extend("force", default_config, custom_settings)
-	
+
 	-- Configure the server if it has custom settings
 	if server_settings[server_name] then
 		vim.lsp.config(server_name, config)
 	end
-	
+
 	-- Enable the server
 	vim.lsp.enable(server_name)
 end
