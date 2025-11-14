@@ -45,9 +45,14 @@ return require("packer").startup(function(use)
 		end,
 	})
 	use({
-		"folke/neodev.nvim",
+		"folke/lazydev.nvim",
+		ft = "lua",
 		config = function()
-			require("neodev").setup({})
+			require("lazydev").setup({
+				library = {
+					{ path = "luvit-meta/library", words = { "vim%.uv" } },
+				},
+			})
 		end,
 	})
 	use("WhoIsSethDaniel/mason-tool-installer")
