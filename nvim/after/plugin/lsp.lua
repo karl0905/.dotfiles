@@ -91,10 +91,6 @@ local server_settings = {
 		},
 	},
 
-	sorbet = {
-		cmd = { "env", "MallocStackLogging=0", "MallocScribble=0", "srb", "tc", "--lsp" },
-	},
-
 	-- omnisharp = {
 	-- 	cmd = {
 	-- 		"dotnet",
