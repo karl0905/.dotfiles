@@ -178,7 +178,7 @@ return require("packer").startup(function(use)
 	use("kristijanhusak/vim-dadbod-ui")
 	use("kristijanhusak/vim-dadbod-completion")
 
-  -- gitsigns
+	-- gitsigns
 	use({
 		"lewis6991/gitsigns.nvim",
 		requires = {
@@ -226,7 +226,9 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-  -- vimgolf
-  use("vuciv/golf")
+	-- vimgolf
+	use("vuciv/golf")
 
+	-- nvim-notify
+	use("rcarriga/nvim-notify")
 end)
