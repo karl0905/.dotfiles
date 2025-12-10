@@ -13,7 +13,7 @@ local servers = {
 	"lua_ls",
 	"graphql",
 	"emmet_ls",
-	"pyright",
+	-- "pyright",
 	-- "omnisharp",
 	"csharp_ls",
 	"ruby_lsp",
