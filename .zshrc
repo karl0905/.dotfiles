@@ -108,3 +108,7 @@ alias gb="git rev-parse --abbrev-ref HEAD"
 alias gaan="git add -AN"
 alias gap="git add -p"
 alias v="nvim"
+
+#################### PLUGINS #######################
+source <(fzf --zsh)
+eval "$(zoxide init zsh)"
