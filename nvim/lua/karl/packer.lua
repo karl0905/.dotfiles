@@ -94,13 +94,19 @@ return require("packer").startup(function(use)
 	})
 	use("github/copilot.vim")
 	use("christoomey/vim-tmux-navigator")
-	use({
-		"preservim/nerdtree",
-		requires = {
-			"ryanoasis/vim-devicons",
-			"bryanmylee/vim-colorscheme-icons",
-		},
-	})
+	-- use({
+	-- 	"preservim/nerdtree",
+	-- 	requires = {
+	-- 		"ryanoasis/vim-devicons",
+	-- 		"bryanmylee/vim-colorscheme-icons",
+	-- 	},
+	-- })
+  use({
+    "stevearc/oil.nvim",
+    config = function()
+      require("oil").setup()
+    end,
+  })
 	use({
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
