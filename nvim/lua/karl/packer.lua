@@ -107,6 +107,8 @@ return require("packer").startup(function(use)
       require("oil").setup()
     end,
   })
+  -- devicons
+  use("nvim-tree/nvim-web-devicons")
 	use({
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
