@@ -15,7 +15,6 @@ local servers = {
 	"emmet_ls",
 	-- "pyright",
 	-- "omnisharp",
-	"csharp_ls",
 	"ruby_lsp",
 	"sorbet",
 	"eslint",
@@ -90,47 +89,12 @@ local server_settings = {
 			},
 		},
 	},
-
-	-- omnisharp = {
-	-- 	cmd = {
-	-- 		"dotnet",
-	-- 		vim.fn.stdpath("data") .. "/mason/packages/omnisharp/OmniSharp.dll",
-	-- 		"--languageserver",
-	-- 		"--hostPID",
-	-- 		tostring(vim.fn.getpid()),
-	-- 	},
-	-- 	root_dir = vim.fs.root(0, {"*.sln", "*.csproj", "omnisharp.json", "Directory.Build.props", "Assets", "ProjectSettings"}),
-	-- 	settings = {
-	-- 		-- Unity-specific settings
-	-- 		MsBuild = {
-	-- 			UseLegacySdkResolver = true, -- Needed for Unity
-	-- 			EnableImportCompletion = true,
-	-- 			LoadProjectsOnDemand = true,
-	-- 		},
-	-- 		FileOptions = {
-	-- 			ExcludeSearchPatterns = { "**/obj/**", "**/bin/**", "**/Library/**", "**/Temp/**" }, -- Add Unity folders
-	-- 			AnalyzeOpenDocumentsOnly = false, -- Set to false for Unity
-	-- 		},
-	-- 		Sdk = {
-	-- 			IncludePrereleases = true,
-	-- 		},
-	-- 	},
-	-- 	on_attach = function(client, bufnr)
-	-- 		-- Unity-specific configuration can go here
-	-- 		client.server_capabilities.semanticTokensProvider = nil -- Disable semantic tokens for Unity projects
-	-- 	end,
-	-- },
-
-	csharp_ls = {
-		settings = {
-			csharp = {
-				format = {
-					enable = true,
-				},
-			},
-		},
-	},
-	-- Add more specific server settings as needed
+  -- Ruby LSP configuration
+  ruby_lsp = {
+    init_options = {
+      formatter = "syntax_tree"
+    },
+  },
 }
 
 -- Default configuration for all servers

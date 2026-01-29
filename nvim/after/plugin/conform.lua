@@ -19,11 +19,6 @@ conform.setup({
     typst = { "typstyle" },
   },
   formatters = {
-    csharpier = {
-      command = "csharpier",
-      args = { "format", "$FILENAME" },
-      stdin = false,
-    },
   },
   -- format_on_save = {
   -- 	lsp_fallback = true,
