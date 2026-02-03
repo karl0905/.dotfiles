@@ -1,4 +1,9 @@
 local lint = require("lint")
+
+-- Configure luacheck to recognize vim as a global
+table.insert(lint.linters.luacheck.args, "--globals")
+table.insert(lint.linters.luacheck.args, "vim")
+
 lint.linters_by_ft = {
 	javascript = { "eslint_d" },
 	typescript = { "eslint_d" },

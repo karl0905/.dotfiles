@@ -47,7 +47,6 @@ mason_lspconfig.setup({
 mason_tool_installer.setup({
 	ensure_installed = {
 		-- Formatters
-		"stylua", -- Lua formatter
 		"prettierd", -- JS/TS/CSS/HTML/JSON/YAML/Markdown formatter
 		"black", -- Python formatter
 		"isort", -- Python import formatter
