@@ -94,6 +94,10 @@ local server_settings = {
       formatter = "syntax_tree"
     },
   },
+  -- Disable watchman to prevent orphaned processes on nvim exit
+  sorbet = {
+    cmd = { "srb", "tc", "--lsp", "--disable-watchman" },
+  },
 }
 
 -- Default configuration for all servers
