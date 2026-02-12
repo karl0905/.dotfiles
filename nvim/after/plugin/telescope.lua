@@ -76,8 +76,10 @@ require("telescope").load_extension("file_browser")
 
 -- Keymaps
 vim.keymap.set("n", "<leader>pf", builtin.find_files, {})
--- git files search på Ctrl + p, dette søger efter alle git filer
-vim.keymap.set("n", "<C-p>", builtin.git_files, {})
+-- search all git files for current repo
+vim.keymap.set("n", "<C-p>", function()
+	builtin.find_files({ no_ignore = true, hidden = true })
+end)
 -- Continue telescope (resume last picker)
 vim.keymap.set("n", "<leader>pr", builtin.resume, {})
 vim.keymap.set("n", "<leader>ps", function()
