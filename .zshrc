@@ -34,16 +34,7 @@ export VISUAL="nvim"
 export PATH="$HOME/.config/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 
-export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
-# Load ASDF based on OS
-if [[ "$(uname)" == "Darwin" ]]; then
-    # macOS ASDF initialization
-    . /opt/homebrew/opt/asdf/libexec/asdf.sh
-elif [[ "$(uname)" == "Linux" ]]; then
-    # Linux ASDF initialization
-    . /home/linuxbrew/.linuxbrew/opt/asdf/libexec/asdf.sh
-fi
 
 # Add .NET Core SDK tools
 export PATH="$PATH:$HOME/.dotnet/tools"
