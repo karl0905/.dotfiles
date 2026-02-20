@@ -260,4 +260,12 @@ return require("packer").startup(function(use)
 
 	-- nvim-notify
 	use("rcarriga/nvim-notify")
+
+  -- typr
+  use({
+    "nvzone/typr",
+    requires = {
+      "nvzone/volt",
+    },
+  })
 end)
