@@ -1,4 +1,5 @@
 vim.opt.guicursor = "n:block"
+io.write("set was sourced")
 
 vim.opt.nu = true
 vim.opt.relativenumber = true
