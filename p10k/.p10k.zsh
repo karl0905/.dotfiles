@@ -37,14 +37,14 @@
   # Zsh >= 5.1 is required.
   [[ $ZSH_VERSION == (5.<1->*|<6->.*) ]] || return
 
-  # Prompt colors.
-  local grey='242'
-  local red='1'
-  local yellow='3'
-  local blue='4'
-  local magenta='5'
-  local cyan='6'
-  local white='7'
+  # Prompt colors (Catppuccin Macchiato).
+  local grey='#6e738d'     # overlay0
+  local red='#ed8796'      # red
+  local yellow='#eed49f'   # yellow
+  local blue='#8aadf4'     # blue
+  local magenta='#c6a0f6'  # mauve
+  local cyan='#7dc4e4'     # sapphire
+  local white='#cad3f5'    # text
 
   # Left prompt segments.
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
@@ -133,16 +133,16 @@
 
     if (( $1 )); then
       local       meta='%f'
-      local      clean='%242F'
-      local   modified='%242F'
-      local  untracked='%242F'
-      local conflicted='%1F'
+      local      clean='%F{#6e738d}'
+      local   modified='%F{#eed49f}'
+      local  untracked='%F{#6e738d}'
+      local conflicted='%F{#ed8796}'
     else
       local       meta='%f'
-      local      clean='%242F'
-      local   modified='%242F'
-      local  untracked='%242F'
-      local conflicted='%1F'
+      local      clean='%F{#6e738d}'
+      local   modified='%F{#eed49f}'
+      local  untracked='%F{#6e738d}'
+      local conflicted='%F{#ed8796}'
     fi
 
     local res
@@ -196,12 +196,12 @@
   typeset -g POWERLEVEL9K_VCS_CONTENT_EXPANSION='${$((my_git_formatter(1)))+${my_git_format}}'
   typeset -g POWERLEVEL9K_VCS_LOADING_CONTENT_EXPANSION='${$((my_git_formatter(0)))+${my_git_format}}'
   typeset -g POWERLEVEL9K_VCS_{STAGED,UNSTAGED,UNTRACKED,CONFLICTED,COMMITS_AHEAD,COMMITS_BEHIND}_MAX_NUM=-1
-  typeset -g POWERLEVEL9K_VCS_VISUAL_IDENTIFIER_COLOR=242
+  typeset -g POWERLEVEL9K_VCS_VISUAL_IDENTIFIER_COLOR=$grey
   typeset -g POWERLEVEL9K_VCS_LOADING_VISUAL_IDENTIFIER_COLOR=
   typeset -g POWERLEVEL9K_VCS_BACKENDS=(git)
-  typeset -g POWERLEVEL9K_VCS_CLEAN_FOREGROUND=242
-  typeset -g POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND=242
-  typeset -g POWERLEVEL9K_VCS_MODIFIED_FOREGROUND=242
+  typeset -g POWERLEVEL9K_VCS_CLEAN_FOREGROUND=$grey
+  typeset -g POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND=$grey
+  typeset -g POWERLEVEL9K_VCS_MODIFIED_FOREGROUND=$grey
 
   # Grey current time.
   typeset -g POWERLEVEL9K_TIME_FOREGROUND=$grey

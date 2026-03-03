@@ -36,7 +36,7 @@ end
 config.font = wezterm.font("Hack Nerd Font Mono")
 config.font_size = 14
 config.enable_tab_bar = false
-config.color_scheme = "Tokyo Night"
+config.color_scheme = "Catppuccin Macchiato"
 config.window_background_opacity = 0.97
 
 -- allow for left option to be used as a compose key
