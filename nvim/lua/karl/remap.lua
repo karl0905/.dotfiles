@@ -73,7 +73,7 @@ vim.keymap.set("n", "<leader>yf", "<Cmd>:%y+<CR>")
 
 -- Yank current file path and name to clipboard
 vim.keymap.set("n", "<leader>yp", function()
-	local filepath = vim.fn.expand("%:p"):gsub(vim.fn.expand("$HOME"), "")
+	local filepath = vim.fn.expand("%:p:.")
 	vim.fn.setreg("+", filepath)
 	vim.notify("Copied to clipboard: " .. filepath)
 end, { desc = "Copy current file path to clipboard" })
