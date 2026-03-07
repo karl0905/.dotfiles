@@ -4,9 +4,8 @@
 # This script will:
 # 1. Install Homebrew if not already installed
 # 2. Install all dependencies from Brewfile
-# 3. Create necessary config directories
-# 4. Symlink files that should exist outside of .config
-# 5. Install additional components (NeoVim plugins, etc.)
+# 3. Stow the common and macOS packages into $HOME
+# 4. Install additional components (NeoVim plugins, etc.)
 
 # Set colors for pretty output
 RED='\033[0;31m'
@@ -17,8 +16,17 @@ PURPLE='\033[0;35m'
 CYAN='\033[0;36m'
 NC='\033[0m' # No Color
 
-# Dotfiles directory (the directory where this script is located)
-DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Resolve the real script path so this works both inside the repo and via a stowed symlink.
+SOURCE="${BASH_SOURCE[0]}"
+while [ -L "$SOURCE" ]; do
+  SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ "$SOURCE" != /* ]] && SOURCE="$SCRIPT_DIR/$SOURCE"
+done
+
+SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+BREWFILE_PATH="$REPO_ROOT/macos/Brewfile"
 
 # Log helper functions
 log_info() {
@@ -40,25 +48,6 @@ log_error() {
 # Check if a command exists
 command_exists() {
   command -v "$1" >/dev/null 2>&1
-}
-
-# Create a symbolic link with backup of existing file
-create_symlink() {
-  local src="$1"
-  local dest="$2"
-
-  # Create directory if it doesn't exist
-  mkdir -p "$(dirname "$dest")"
-
-  # If destination exists (file, directory, or symlink)
-  if [ -e "$dest" ] || [ -L "$dest" ]; then
-    log_warning "Removing existing $dest"
-    rm -rf "$dest"
-  fi
-
-  # Create symlink
-  ln -sf "$src" "$dest"
-  log_success "Symlinked $src to $dest"
 }
 
 # Install Homebrew if not already installed
@@ -88,36 +77,36 @@ install_homebrew() {
 install_brew_packages() {
   log_info "Installing packages from Brewfile..."
 
-  if [ -f "$DOTFILES_DIR/Brewfile" ]; then
+  if [ -f "$BREWFILE_PATH" ]; then
     # Make sure Homebrew bundle is installed
     brew tap Homebrew/bundle
 
     # Install from Brewfile
-    brew bundle --file="$DOTFILES_DIR/Brewfile"
+    brew bundle --file="$BREWFILE_PATH"
     log_success "Packages installed successfully"
   else
-    log_error "Brewfile not found at $DOTFILES_DIR/Brewfile"
+    log_error "Brewfile not found at $BREWFILE_PATH"
+    exit 1
   fi
 }
 
-# Create required directories
-create_directories() {
-  log_info "Creating required directories..."
+# Stow packages into the home directory
+stow_packages() {
+  log_info "Stowing dotfiles into $HOME..."
 
-  # Create directories (these should already exist if cloned to .config)
-  mkdir -p ~/.config/nvim
-  mkdir -p ~/.config/tmux
-  mkdir -p ~/.config/tmux/plugins
-  mkdir -p ~/.config/borders
-  mkdir -p ~/.config/karabiner
+  if ! command_exists stow; then
+    log_error "stow is not installed"
+    exit 1
+  fi
 
-  log_success "Directories created"
+  stow --dir="$REPO_ROOT" --target="$HOME" --restow common macos
+  log_success "Stowed common and macOS packages"
 }
 
 # Main installation function
 main() {
   echo -e "${CYAN}=== Karl's dotfiles installation script for macOS ===${NC}"
-  echo -e "${CYAN}=== Starting installation from: ${DOTFILES_DIR} ===${NC}\n"
+  echo -e "${CYAN}=== Starting installation from: ${REPO_ROOT} ===${NC}\n"
 
   # Install Homebrew
   install_homebrew
@@ -125,8 +114,8 @@ main() {
   # Install packages from Brewfile
   install_brew_packages
 
-  # Create required directories (if they don't exist)
-  create_directories
+  # Stow packages
+  stow_packages
 
   # Set up NeoVim
   log_info "Setting up NeoVim configuration"
@@ -144,17 +133,6 @@ main() {
     log_info "Installing Tmux Plugin Manager..."
     git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
   fi
-
-  # Only symlink files that go outside of .config
-  log_info "Creating symbolic links for files outside of .config..."
-  create_symlink "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
-  create_symlink "$DOTFILES_DIR/p10k/.p10k.zsh" "$HOME/.p10k.zsh"
-  create_symlink "$DOTFILES_DIR/.wezterm.lua" "$HOME/.wezterm.lua"
-
-  # These may be redundant if borders and karabiner are already in .config
-  # but keeping them for clarity
-  create_symlink "$DOTFILES_DIR/borders/bordersrc" "$HOME/.config/borders/bordersrc"
-  create_symlink "$DOTFILES_DIR/karabiner/karabiner.json" "$HOME/.config/karabiner/karabiner.json"
 
   echo -e "\n${GREEN}=== Installation complete! ===${NC}"
   echo -e "${YELLOW}Notes:${NC}"
