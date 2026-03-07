@@ -43,4 +43,6 @@ stow --target="$HOME" --restow common macos
 ## Notes
 
 - `exports/raycast` is not a stow package. It stores exported config snapshots only.
-- `macos/Brewfile` and `macos/mac-install.sh` remain in the `macos` package because their natural target is `$HOME`.
+- `macos-install.sh` bootstraps the current macOS dependency set and then stows `common` and `macos`.
+- `macos/Brewfile` remains in the `macos` package because its natural target is `$HOME`.
+- `linux-install.sh` bootstraps the current Arch-based Linux dependency set and then stows `common` and `linux`.

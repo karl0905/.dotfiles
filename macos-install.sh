@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# mac-install.sh - Setup script for Karl's dotfiles on macOS
+# macos-install.sh - Setup script for Karl's dotfiles on macOS
 # This script will:
 # 1. Install Homebrew if not already installed
 # 2. Install all dependencies from Brewfile
@@ -16,7 +16,7 @@ PURPLE='\033[0;35m'
 CYAN='\033[0;36m'
 NC='\033[0m' # No Color
 
-# Resolve the real script path so this works both inside the repo and via a stowed symlink.
+# Resolve the real script path so this works both inside the repo and via a symlink.
 SOURCE="${BASH_SOURCE[0]}"
 while [ -L "$SOURCE" ]; do
   SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
@@ -24,8 +24,7 @@ while [ -L "$SOURCE" ]; do
   [[ "$SOURCE" != /* ]] && SOURCE="$SCRIPT_DIR/$SOURCE"
 done
 
-SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
-REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+REPO_ROOT="$(cd -P "$(dirname "$SOURCE")" && pwd)"
 BREWFILE_PATH="$REPO_ROOT/macos/Brewfile"
 
 # Log helper functions
