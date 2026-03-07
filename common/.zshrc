@@ -10,12 +10,14 @@ if [[ "$(uname)" == "Darwin" ]]; then
     export POWERLEVEL10K_PATH="/opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme"
     export PATH="/Applications/Opera GX.app/Contents/MacOS:$PATH"
 elif [[ "$(uname)" == "Linux" ]]; then
-    # WSL-specific configurations
-    export POWERLEVEL10K_PATH="/home/linuxbrew/.linuxbrew/opt/powerlevel10k/share/powerlevel10k/powerlevel10k.zsh-theme"
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    # Linux-specific configurations
+    export POWERLEVEL10K_PATH="/usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme"
+    if [[ -x "/home/linuxbrew/.linuxbrew/bin/brew" ]]; then
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    fi
 fi
 
-if [[ -n "$POWERLEVEL10K_PATH" ]]; then
+if [[ -n "$POWERLEVEL10K_PATH" && -r "$POWERLEVEL10K_PATH" ]]; then
     source "$POWERLEVEL10K_PATH"
 fi
 
@@ -79,7 +81,9 @@ fpath=(${ASDF_DIR}/completions $fpath)
 if [[ "$(uname)" == "Darwin" ]]; then
     FPATH=/opt/homebrew/share/zsh-completions:$FPATH
 elif [[ "$(uname)" == "Linux" ]]; then
-    FPATH=/home/linuxbrew/.linuxbrew/share/zsh-completions:$FPATH
+    if [[ -d "/usr/share/zsh/site-functions" ]]; then
+        FPATH=/usr/share/zsh/site-functions:$FPATH
+    fi
 fi
 
 #################### ALIAS #######################
@@ -107,4 +111,6 @@ alias v="nvim"
 #################### PLUGINS #######################
 source <(fzf --zsh)
 eval "$(zoxide init zsh)"
-eval "$(direnv hook zsh)"
+if command -v direnv >/dev/null 2>&1; then
+    eval "$(direnv hook zsh)"
+fi
