@@ -11,7 +11,7 @@ if [[ "$(uname)" == "Darwin" ]]; then
     export PATH="/Applications/Opera GX.app/Contents/MacOS:$PATH"
 elif [[ "$(uname)" == "Linux" ]]; then
     # Linux-specific configurations
-    export POWERLEVEL10K_PATH="/home/linuxbrew/.linuxbrew/opt/powerlevel10k/share/powerlevel10k/powerlevel10k.zsh-theme"
+    export POWERLEVEL10K_PATH="/usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme"
     if [[ -x "/home/linuxbrew/.linuxbrew/bin/brew" ]]; then
         eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
     fi
@@ -81,8 +81,8 @@ fpath=(${ASDF_DIR}/completions $fpath)
 if [[ "$(uname)" == "Darwin" ]]; then
     FPATH=/opt/homebrew/share/zsh-completions:$FPATH
 elif [[ "$(uname)" == "Linux" ]]; then
-    if [[ -d "/home/linuxbrew/.linuxbrew/share/zsh-completions" ]]; then
-        FPATH=/home/linuxbrew/.linuxbrew/share/zsh-completions:$FPATH
+    if [[ -d "/usr/share/zsh/site-functions" ]]; then
+        FPATH=/usr/share/zsh/site-functions:$FPATH
     fi
 fi
 
