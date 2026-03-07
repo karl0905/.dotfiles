@@ -27,7 +27,6 @@ return require("packer").startup(function(use)
     after = "nvim-treesitter",
     requires = "nvim-treesitter/nvim-treesitter",
   })
-	use("nvim-treesitter/playground")
 	use({
 		"theprimeagen/harpoon",
 		branch = "harpoon2",

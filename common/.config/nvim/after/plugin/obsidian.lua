@@ -1,14 +1,25 @@
-require("obsidian").setup({
-	workspaces = {
-		{
-			name = "personal",
-			path = "~/repos/notes/personal",
-		},
-		{
-			name = "landfolk",
-			path = "~/repos/notes/landfolk",
-		},
-	},
+local ok, obsidian = pcall(require, "obsidian")
+if not ok then
+	return
+end
+
+local workspaces = {}
+for _, workspace in ipairs({
+	{ name = "personal", path = "~/repos/notes/personal" },
+	{ name = "landfolk", path = "~/repos/notes/landfolk" },
+}) do
+	local expanded = vim.fn.expand(workspace.path)
+	if vim.fn.isdirectory(expanded) == 1 then
+		table.insert(workspaces, workspace)
+	end
+end
+
+if #workspaces == 0 then
+	return
+end
+
+obsidian.setup({
+	workspaces = workspaces,
 	daily_notes = {
 		folder = "daily",
 		date_format = "%Y-%d-%m-%a",
@@ -23,39 +34,38 @@ require("obsidian").setup({
 		enable = false,
 	},
 	new_notes_location = "current_dir",
-	-- Zettelkasten-style IDs: timestamp + title
 	note_id_func = function(title)
 		local suffix = ""
 		if title ~= nil then
 			suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
 		else
-			-- Random suffix if no title
 			for _ = 1, 4 do
 				suffix = suffix .. string.char(math.random(65, 90))
 			end
 		end
 		return tostring(os.time()) .. "-" .. suffix
 	end,
-
 	preferred_link_style = "wiki",
-
 	templates = {
 		folder = "templates",
 		date_format = "%Y-%m-%d-%a",
 		time_format = "%H:%M",
 	},
-	-- Show recently modified notes first (great for Zettelkasten workflow)
 	sort_by = "modified",
 	sort_reversed = true,
 	mappings = {},
-
-	---@param url string
 	follow_url_func = function(url)
-		-- Open the URL in the default web browser.
-		vim.fn.jobstart({ "open", url }) -- Mac OS
-		-- vim.fn.jobstart({"xdg-open", url})  -- linux
-		-- vim.cmd(':silent exec "!start ' .. url .. '"') -- Windows
-		-- vim.ui.open(url) -- need Neovim 0.10.0+
+		if vim.ui.open then
+			vim.ui.open(url)
+			return
+		end
+
+		if vim.fn.has("mac") == 1 then
+			vim.fn.jobstart({ "open", url })
+			return
+		end
+
+		vim.fn.jobstart({ "xdg-open", url })
 	end,
 })
 
