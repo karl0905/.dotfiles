@@ -34,10 +34,10 @@ end
 
 -- Common configuration options
 config.font = wezterm.font("Hack Nerd Font Mono")
-config.font_size = 14
+config.font_size = 12
 config.enable_tab_bar = false
 config.color_scheme = "Catppuccin Macchiato"
-config.window_background_opacity = 0.97
+config.window_background_opacity = 0.70
 
 -- allow for left option to be used as a compose key
 config.use_dead_keys = false
