@@ -34,7 +34,7 @@ end
 
 -- Common configuration options
 config.font = wezterm.font("Hack Nerd Font Mono")
-config.font_size = 12
+config.font_size = 10
 config.enable_tab_bar = false
 config.color_scheme = "Catppuccin Macchiato"
 config.window_background_opacity = 0.70
