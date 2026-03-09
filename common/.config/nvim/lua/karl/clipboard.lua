@@ -30,18 +30,7 @@ M.setup = function()
       cache_enabled = 0,
     }
   else
-    -- Linux and other systems
-    vim.g.clipboard = {
-      name = 'OSC 52',
-      copy = {
-        ['+'] = require('vim.ui.clipboard.osc52').copy,
-        ['*'] = require('vim.ui.clipboard.osc52').copy,
-      },
-      paste = {
-        ['+'] = require('vim.ui.clipboard.osc52').paste,
-        ['*'] = require('vim.ui.clipboard.osc52').paste,
-      },
-    }
+    return
   end
 end
 
