@@ -28,7 +28,7 @@ if wezterm.target_triple:match("windows") then
     bottom = 0,
   }
 elseif wezterm.target_triple:match("darwin") then
-  config.macos_window_background_blur = 10
+  config.macos_window_background_blur = 40
   config.window_decorations = "RESIZE"
 end
 
