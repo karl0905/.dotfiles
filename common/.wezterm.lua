@@ -43,5 +43,8 @@ config.window_background_opacity = 0.70
 config.use_dead_keys = false
 config.send_composed_key_when_left_alt_is_pressed = true
 
+-- Never prompt window close confirmation
+config.window_close_confirmation = 'NeverPrompt'
+
 -- Return the configuration to wezterm
 return config
