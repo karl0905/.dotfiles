@@ -1,6 +1,10 @@
 local builtin = require("telescope.builtin")
 local actions = require("telescope.actions")
 
+local hidden_grep_args = function()
+	return { "--fixed-strings", "--hidden", "--glob", "!.git/*" }
+end
+
 -- Custom function to narrow down the search results for live_grep by selecting a dir
 local select_dir_for_grep = function()
 	local action_state = require("telescope.actions.state")
@@ -22,6 +26,7 @@ local select_dir_for_grep = function()
 					results_title = relative .. "/",
 					cwd = absolute,
 					default_text = current_line,
+					additional_args = hidden_grep_args,
 				})
 			end)
 
@@ -56,7 +61,11 @@ require("telescope").setup({
 		},
 	},
   pickers = {
+    find_files = {
+      hidden = true,
+    },
     live_grep = {
+      additional_args = hidden_grep_args,
       mappings = {
         i = {
           -- Select directory for live_grep
@@ -75,18 +84,14 @@ require("telescope").setup({
 require("telescope").load_extension("file_browser")
 
 -- Keymaps
-vim.keymap.set("n", "<leader>pf", builtin.find_files, {})
+vim.keymap.set("n", "<leader>pf", function()
+	builtin.find_files({ hidden = true })
+end, {})
 -- search all git files for current repo
 vim.keymap.set("n", "<C-p>", function()
 	builtin.find_files({ no_ignore = true, hidden = true })
 end)
 -- Continue telescope (resume last picker)
 vim.keymap.set("n", "<leader>pr", builtin.resume, {})
-vim.keymap.set("n", "<leader>ps", function()
-	builtin.live_grep({
-		additional_args = function()
-			return { "--fixed-strings" }
-		end,
-	})
-end)
+vim.keymap.set("n", "<leader>ps", builtin.live_grep)
 vim.keymap.set("n", "<leader>pb", builtin.buffers)
