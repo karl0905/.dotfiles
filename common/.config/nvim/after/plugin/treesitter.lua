@@ -3,9 +3,20 @@ if not ok then
   return
 end
 
+vim.cmd("packadd nvim-treesitter-textobjects")
+
+local configs = require("nvim-treesitter.configs")
 local treesitter_filetypes = { "c", "gdscript", "javascript", "lua", "query", "ruby", "typescript", "vim", "vimdoc" }
 
 treesitter.setup()
+configs.setup({
+  textobjects = {
+    select = {
+      enable = true,
+      lookahead = true,
+    },
+  },
+})
 
 local function start_treesitter(bufnr)
   if not vim.api.nvim_buf_is_loaded(bufnr) or vim.bo[bufnr].buftype ~= "" then
@@ -33,18 +44,11 @@ for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
   start_treesitter(bufnr)
 end
 
-local textobjects_ok, textobjects = pcall(require, "nvim-treesitter-textobjects")
+local textobjects_ok, select = pcall(require, "nvim-treesitter.textobjects.select")
 if not textobjects_ok then
   return
 end
 
-textobjects.setup({
-  select = {
-    lookahead = true,
-  },
-})
-
-local select = require("nvim-treesitter-textobjects.select")
 local select_modes = { "x", "o" }
 
 vim.keymap.set(select_modes, "af", function()
