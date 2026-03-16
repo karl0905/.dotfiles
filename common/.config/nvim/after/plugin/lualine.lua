@@ -20,15 +20,15 @@ require("lualine").setup({
   sections = {
     lualine_a = { "mode" },
     lualine_b = {
-      {
-        "branch",
-        fmt = function(str)
-          if string.len(str) > 40 then
-            return string.sub(str, 1, 37) .. "..."
-          end
-          return str
-        end,
-      },
+      -- {
+      --   "branch",
+      --   fmt = function(str)
+      --     if string.len(str) > 40 then
+      --       return string.sub(str, 1, 37) .. "..."
+      --     end
+      --     return str
+      --   end,
+      -- },
       -- "diff",
       -- "diagnostics",
     },
