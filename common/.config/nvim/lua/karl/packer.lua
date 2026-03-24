@@ -14,7 +14,8 @@ return require("packer").startup(function(use)
     requires = { { "nvim-lua/plenary.nvim" } },
   })
   use("nvim-telescope/telescope-file-browser.nvim")
-  use { "catppuccin/nvim", as = "catppuccin" }
+  -- use { "catppuccin/nvim", as = "catppuccin" }
+  use({ "rose-pine/neovim", as = "rose-pine" })
   use({
     "nvim-treesitter/nvim-treesitter",
     run = function()
