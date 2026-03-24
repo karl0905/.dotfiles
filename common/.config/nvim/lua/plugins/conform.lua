@@ -19,6 +19,7 @@ conform.setup({
     sh = { "shfmt" },
     bash = { "shfmt" },
     typst = { "typstyle" },
+    gdscript = { "gdscript-formatter"}
   },
   formatters = {},
   -- format_on_save = {
