@@ -42,14 +42,8 @@ vim.keymap.set("n", "<Left>", ":vertical resize +4<CR>")
 vim.keymap.set("n", "<Right>", ":vertical resize -4<CR>")
 vim.keymap.set("n", "<Up>", ":horizontal resize +4<CR>")
 vim.keymap.set("n", "<Down>", ":horizontal resize -4<CR>")
--- NERDTree
 
 -- Vim tmux navigator
--- vim.keymap.set('n', '<C-h>', '<Cmd>TmuxNavigateLeft<CR>', { silent = true })
--- vim.keymap.set('n', '<C-j>', '<Cmd>TmuxNavigateDown<CR>', { silent = true })
--- vim.keymap.set('n', '<C-k>', '<Cmd>TmuxNavigateUp<CR>', { silent = true })
--- vim.keymap.set('n', '<C-l>', '<Cmd>TmuxNavigateRight<CR>', { silent = true })
--- vim.keymap.set('n', '<C-p>', '<Cmd>TmuxNavigatePrevious<CR>', { silent = true })vim.keymap.set('n', '{Left-Mapping}', '<Cmd>TmuxNavigateLeft<CR>', { silent = true })
 vim.keymap.set("n", "{Left-Mapping}", "<Cmd>TmuxNavigateLeft<CR>", { silent = true })
 vim.keymap.set("n", "{Down-Mapping}", "<Cmd>TmuxNavigateDown<CR>", { silent = true })
 vim.keymap.set("n", "{Up-Mapping}", "<Cmd>TmuxNavigateUp<CR>", { silent = true })

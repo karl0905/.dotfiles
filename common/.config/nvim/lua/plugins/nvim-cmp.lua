@@ -1,9 +1,15 @@
--- In nvim/after/plugin/cmp.lua
+vim.pack.add({
+	"https://github.com/hrsh7th/nvim-cmp",
+	"https://github.com/hrsh7th/cmp-buffer",
+	"https://github.com/hrsh7th/cmp-path",
+	"https://github.com/L3MON4D3/LuaSnip",
+	"https://github.com/saadparwaiz1/cmp_luasnip",
+	"https://github.com/rafamadriz/friendly-snippets",
+	"https://github.com/onsails/lspkind.nvim",
+})
+
 local cmp = require("cmp")
 local luasnip = require("luasnip")
-
--- Load VSCode-style snippets
-require("luasnip.loaders.from_vscode").lazy_load()
 
 cmp.setup({
 	completion = {
