@@ -115,20 +115,6 @@ return require("packer").startup(function(use)
     end,
   })
   use("christoomey/vim-tmux-navigator")
-  -- use({
-  -- 	"preservim/nerdtree",
-  -- 	requires = {
-  -- 		"ryanoasis/vim-devicons",
-  -- 		"bryanmylee/vim-colorscheme-icons",
-  -- 	},
-  -- })
-  use({
-    "stevearc/oil.nvim",
-    config = function()
-      require("oil").setup()
-    end,
-  })
-  -- devicons
   use("nvim-tree/nvim-web-devicons")
   use({
     "windwp/nvim-autopairs",
