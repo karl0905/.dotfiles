@@ -65,7 +65,7 @@ vim.keymap.set("n", "<leader>db", "<Cmd>DBUIToggle<CR>")
 vim.keymap.set("n", "<leader>dr", "<Cmd>DB<CR>")
 
 vim.keymap.set("n", "<leader><leader>", function()
-	vim.cmd("so")
+  vim.cmd("so")
 end)
 
 -- Yank whole file to clipboard
@@ -73,9 +73,9 @@ vim.keymap.set("n", "<leader>yf", "<Cmd>:%y+<CR>")
 
 -- Yank current file path and name to clipboard
 vim.keymap.set("n", "<leader>yp", function()
-	local filepath = vim.fn.expand("%:p:.")
-	vim.fn.setreg("+", filepath)
-	vim.notify("Copied to clipboard: " .. filepath)
+  local filepath = vim.fn.expand("%:p:.")
+  vim.fn.setreg("+", filepath)
+  vim.notify("Copied to clipboard: " .. filepath)
 end, { desc = "Copy current file path to clipboard" })
 
 -- Open floating linter window
@@ -83,3 +83,7 @@ vim.keymap.set("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>")
 
 -- Render markdown toggle
 vim.keymap.set("n", "<leader>rm", ":RenderMarkdown toggle<CR>", { noremap = true, silent = true })
+
+-- Scratchpad files
+vim.keymap.set("n", "<leader>ot", ":e ~/tmp/todo.md<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>or", ":e ~/tmp/scratchpad.rb<CR>", { noremap = true, silent = true })
