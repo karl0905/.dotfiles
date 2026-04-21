@@ -32,41 +32,4 @@ vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
 
-local M = {}
 
--- clipboard fix for multiple OS'es
-M.setup = function()
-  if vim.fn.has('wsl') == 1 then
-    -- WSL-specific clipboard setup
-    vim.g.clipboard = {
-      name = 'WslClipboard',
-      copy = {
-        ['+'] = 'clip.exe',
-        ['*'] = 'clip.exe',
-      },
-      paste = {
-        ['+'] = 'powershell.exe -c Get-Clipboard',
-        ['*'] = 'powershell.exe -c Get-Clipboard',
-      },
-      cache_enabled = 0,
-    }
-  elseif vim.fn.has('mac') == 1 then
-    -- macOS specific clipboard setup
-    vim.g.clipboard = {
-      name = 'macOS-clipboard',
-      copy = {
-        ['+'] = 'pbcopy',
-        ['*'] = 'pbcopy',
-      },
-      paste = {
-        ['+'] = 'pbpaste',
-        ['*'] = 'pbpaste',
-      },
-      cache_enabled = 0,
-    }
-  else
-    return
-  end
-end
-
-return M
