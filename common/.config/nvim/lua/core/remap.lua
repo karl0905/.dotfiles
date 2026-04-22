@@ -64,9 +64,6 @@ end, { desc = "Copy current file path to clipboard" })
 -- Open floating linter window
 vim.keymap.set("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>")
 
--- Render markdown toggle
-vim.keymap.set("n", "<leader>rm", ":RenderMarkdown toggle<CR>", { noremap = true, silent = true })
-
 -- Scratchpad files
 vim.keymap.set("n", "<leader>ot", ":e ~/tmp/todo.md<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>or", ":e ~/tmp/scratchpad.rb<CR>", { noremap = true, silent = true })
