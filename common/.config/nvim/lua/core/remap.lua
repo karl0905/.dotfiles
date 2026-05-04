@@ -56,9 +56,18 @@ vim.keymap.set("n", "<leader>yf", "<Cmd>:%y+<CR>")
 
 -- Yank current file path and name to clipboard
 vim.keymap.set("n", "<leader>yp", function()
+  local filepath = vim.fn.expand("%:p:.")
+  vim.fn.setreg("+", filepath)
+  vim.notify("Copied to clipboard: " .. filepath)
+end, { desc = "Copy current file path to clipboard" })
+
+-- Yank current file path, name and line-number to clipboard
+vim.keymap.set("n", "<leader>yP", function()
 	local filepath = vim.fn.expand("%:p:.")
-	vim.fn.setreg("+", filepath)
-	vim.notify("Copied to clipboard: " .. filepath)
+  local line_number = vim.fn.line(".")
+  local full_path_with_line = filepath .. ":" .. line_number
+  vim.fn.setreg("+", full_path_with_line)
+	vim.notify("Copied to clipboard: " .. full_path_with_line)
 end, { desc = "Copy current file path to clipboard" })
 
 -- Open floating linter window
