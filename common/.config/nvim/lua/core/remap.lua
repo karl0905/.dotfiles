@@ -40,13 +40,6 @@ vim.keymap.set("n", "<Right>", ":vertical resize -4<CR>")
 vim.keymap.set("n", "<Up>", ":horizontal resize +4<CR>")
 vim.keymap.set("n", "<Down>", ":horizontal resize -4<CR>")
 
--- Vim tmux navigator
-vim.keymap.set("n", "{Left-Mapping}", "<Cmd>TmuxNavigateLeft<CR>", { silent = true })
-vim.keymap.set("n", "{Down-Mapping}", "<Cmd>TmuxNavigateDown<CR>", { silent = true })
-vim.keymap.set("n", "{Up-Mapping}", "<Cmd>TmuxNavigateUp<CR>", { silent = true })
-vim.keymap.set("n", "{Right-Mapping}", "<Cmd>TmuxNavigateRight<CR>", { silent = true })
-vim.keymap.set("n", "{Previous-Mapping}", "<Cmd>TmuxNavigatePrevious<CR>", { silent = true })
-
 vim.keymap.set("n", "<leader><leader>", function()
 	vim.cmd("so")
 end)
