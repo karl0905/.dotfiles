@@ -92,15 +92,7 @@ stow_packages() {
 }
 
 bootstrap_neovim() {
-  local packer_dir="$HOME/.local/share/nvim/site/pack/packer/start/packer.nvim"
-
-  if [ -d "$packer_dir" ]; then
-    return
-  fi
-
-  log_info "Installing packer.nvim..."
-  git clone --depth 1 https://github.com/wbthomason/packer.nvim "$packer_dir"
-  log_success "packer.nvim installed"
+  log_info "NeoVim plugins are managed by vim.pack and will install on first launch"
 }
 
 bootstrap_tmux() {
@@ -134,7 +126,7 @@ main() {
   echo -e "${YELLOW}Notes:${NC}"
   echo -e "1. Restart your shell so zsh, powerlevel10k, and completions reload"
   echo -e "2. For tmux, launch it and press ${YELLOW}prefix + I${NC} to install plugins"
-  echo -e "3. For NeoVim, run ${YELLOW}:PackerSync${NC} once inside NeoVim if plugins are missing"
+  echo -e "3. For NeoVim, launch it once and let ${YELLOW}vim.pack${NC} install plugins automatically"
 }
 
 main "$@"

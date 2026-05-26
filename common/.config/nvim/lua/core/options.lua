@@ -1,3 +1,5 @@
+vim.g.instant_username = "KARL"
+
 vim.opt.guicursor = "n:block"
 
 vim.opt.nu = true
@@ -29,3 +31,5 @@ vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
+
+

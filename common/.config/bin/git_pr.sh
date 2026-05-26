@@ -13,10 +13,6 @@ require_command() {
   fi
 }
 
-script_dir() {
-  cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd
-}
-
 current_branch="$(git_current_branch)"
 
 if [[ -z "$current_branch" ]]; then
@@ -24,8 +20,9 @@ if [[ -z "$current_branch" ]]; then
   exit 1
 fi
 
+require_command git
 require_command gh
-"$(script_dir)/git_push_upstream.sh"
+git push --set-upstream origin "$current_branch"
 
 if gh pr view --json url >/dev/null 2>&1; then
   gh pr view --web

@@ -1,6 +1,4 @@
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>nf", "<Cmd>Oil<CR>")
-vim.keymap.set("n", "<leader>pv", "<Cmd>Oil<CR>")
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y"]])
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -20,9 +18,6 @@ vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
-
--- This is going to get me cancelled
-vim.keymap.set("i", "<C-c>", "<Esc>")
 
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
@@ -44,28 +39,9 @@ vim.keymap.set("n", "<Left>", ":vertical resize +4<CR>")
 vim.keymap.set("n", "<Right>", ":vertical resize -4<CR>")
 vim.keymap.set("n", "<Up>", ":horizontal resize +4<CR>")
 vim.keymap.set("n", "<Down>", ":horizontal resize -4<CR>")
--- NERDTree
-
--- Vim tmux navigator
--- vim.keymap.set('n', '<C-h>', '<Cmd>TmuxNavigateLeft<CR>', { silent = true })
--- vim.keymap.set('n', '<C-j>', '<Cmd>TmuxNavigateDown<CR>', { silent = true })
--- vim.keymap.set('n', '<C-k>', '<Cmd>TmuxNavigateUp<CR>', { silent = true })
--- vim.keymap.set('n', '<C-l>', '<Cmd>TmuxNavigateRight<CR>', { silent = true })
--- vim.keymap.set('n', '<C-p>', '<Cmd>TmuxNavigatePrevious<CR>', { silent = true })vim.keymap.set('n', '{Left-Mapping}', '<Cmd>TmuxNavigateLeft<CR>', { silent = true })
-vim.keymap.set("n", "{Left-Mapping}", "<Cmd>TmuxNavigateLeft<CR>", { silent = true })
-vim.keymap.set("n", "{Down-Mapping}", "<Cmd>TmuxNavigateDown<CR>", { silent = true })
-vim.keymap.set("n", "{Up-Mapping}", "<Cmd>TmuxNavigateUp<CR>", { silent = true })
-vim.keymap.set("n", "{Right-Mapping}", "<Cmd>TmuxNavigateRight<CR>", { silent = true })
-vim.keymap.set("n", "{Previous-Mapping}", "<Cmd>TmuxNavigatePrevious<CR>", { silent = true })
-
--- vim dadbod keybinds
--- toggle dadbod UI
-vim.keymap.set("n", "<leader>db", "<Cmd>DBUIToggle<CR>")
--- run current buffer
-vim.keymap.set("n", "<leader>dr", "<Cmd>DB<CR>")
 
 vim.keymap.set("n", "<leader><leader>", function()
-  vim.cmd("so")
+	vim.cmd("so")
 end)
 
 -- Yank whole file to clipboard
@@ -78,12 +54,25 @@ vim.keymap.set("n", "<leader>yp", function()
   vim.notify("Copied to clipboard: " .. filepath)
 end, { desc = "Copy current file path to clipboard" })
 
+-- Yank current file path, name and line-number to clipboard
+vim.keymap.set("n", "<leader>yP", function()
+	local filepath = vim.fn.expand("%:p:.")
+  local line_number = vim.fn.line(".")
+  local full_path_with_line = filepath .. ":" .. line_number
+  vim.fn.setreg("+", full_path_with_line)
+	vim.notify("Copied to clipboard: " .. full_path_with_line)
+end, { desc = "Copy current file path to clipboard" })
+
 -- Open floating linter window
 vim.keymap.set("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>")
-
--- Render markdown toggle
-vim.keymap.set("n", "<leader>rm", ":RenderMarkdown toggle<CR>", { noremap = true, silent = true })
 
 -- Scratchpad files
 vim.keymap.set("n", "<leader>ot", ":e ~/tmp/todo.md<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>or", ":e ~/tmp/scratchpad.rb<CR>", { noremap = true, silent = true })
+
+-- Restart and keep sessions
+vim.keymap.set("n", "<leader>r", function()
+	local session = vim.fn.stdpath("state") .. "/restart_session.vim"
+	vim.cmd("mksession! " .. vim.fn.fnameescape(session))
+	vim.cmd("restart source " .. vim.fn.fnameescape(session))
+end, { desc = "Restart Neovim" })

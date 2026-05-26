@@ -1,3 +1,5 @@
+vim.pack.add({"https://github.com/rcarriga/nvim-notify"})
+
 require("notify").setup({
 	background_colour = "NotifyBackground",
 	fps = 30,
@@ -18,6 +20,7 @@ require("notify").setup({
 	},
 	timeout = 3000,
 	top_down = true,
+  merge_duplicates = true,
 })
 
 vim.notify = require("notify")

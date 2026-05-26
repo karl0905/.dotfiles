@@ -1,3 +1,9 @@
+vim.pack.add({
+	"https://github.com/nvim-telescope/telescope.nvim",
+	"https://github.com/nvim-lua/plenary.nvim",
+	"https://github.com/nvim-telescope/telescope-file-browser.nvim"
+})
+
 local builtin = require("telescope.builtin")
 local actions = require("telescope.actions")
 
@@ -45,8 +51,8 @@ require("telescope").setup({
 				-- Navigate results with Ctrl+J/K
 				["<C-j>"] = actions.move_selection_next,
 				["<C-k>"] = actions.move_selection_previous,
-        -- Select directory for live_grep
-        ["<C-f>"] = select_dir_for_grep,
+				-- Select directory for live_grep
+				["<C-f>"] = select_dir_for_grep,
 			},
 			n = {
 				-- Navigate history with Ctrl+P/N
@@ -55,29 +61,29 @@ require("telescope").setup({
 				-- Navigate results with Ctrl+J/K
 				["<C-j>"] = actions.move_selection_next,
 				["<C-k>"] = actions.move_selection_previous,
-        -- Select directory for live_grep
-        ["<C-f>"] = select_dir_for_grep,
+				-- Select directory for live_grep
+				["<C-f>"] = select_dir_for_grep,
 			},
 		},
 	},
-  pickers = {
-    find_files = {
-      hidden = true,
-    },
-    live_grep = {
-      additional_args = hidden_grep_args,
-      mappings = {
-        i = {
-          -- Select directory for live_grep
-          ["<C-f>"] = select_dir_for_grep,
-        },
-        n = {
-          -- Select directory for live_grep
-          ["<C-f>"] = select_dir_for_grep,
-        },
-      }
-    }
-  }
+	pickers = {
+		find_files = {
+			hidden = true,
+		},
+		live_grep = {
+			additional_args = hidden_grep_args,
+			mappings = {
+				i = {
+					-- Select directory for live_grep
+					["<C-f>"] = select_dir_for_grep,
+				},
+				n = {
+					-- Select directory for live_grep
+					["<C-f>"] = select_dir_for_grep,
+				},
+			},
+		},
+	},
 })
 
 -- Load extensions

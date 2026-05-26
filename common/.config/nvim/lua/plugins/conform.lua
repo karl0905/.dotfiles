@@ -1,3 +1,5 @@
+vim.pack.add({ "https://github.com/stevearc/conform.nvim" })
+
 local conform = require("conform")
 conform.setup({
   formatters_by_ft = {
@@ -12,14 +14,13 @@ conform.setup({
     yaml = { "prettierd" },
     markdown = { "markdownlint" },
     graphql = { "eslint_d" },
-    lua = { "stylua" },
+    -- lua = { "stylua" },
     python = { "isort", "ruff" },
     sh = { "shfmt" },
     bash = { "shfmt" },
     typst = { "typstyle" },
   },
-  formatters = {
-  },
+  formatters = {},
   -- format_on_save = {
   -- 	lsp_fallback = true,
   -- 	async = false,

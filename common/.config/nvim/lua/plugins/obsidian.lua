@@ -1,3 +1,8 @@
+vim.pack.add({
+	"https://github.com/epwalsh/obsidian.nvim",
+	"https://github.com/nvim-lua/plenary.nvim",
+})
+
 local ok, obsidian = pcall(require, "obsidian")
 if not ok then
 	return

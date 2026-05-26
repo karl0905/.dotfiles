@@ -5,7 +5,7 @@
 # 1. Install Homebrew if not already installed
 # 2. Install all dependencies from Brewfile
 # 3. Stow the common and macOS packages into $HOME
-# 4. Install additional components (NeoVim plugins, etc.)
+# 4. Prepare additional components (NeoVim, tmux, etc.)
 
 # Set colors for pretty output
 RED='\033[0;31m'
@@ -102,6 +102,10 @@ stow_packages() {
   log_success "Stowed common and macOS packages"
 }
 
+bootstrap_neovim() {
+  log_info "NeoVim plugins are managed by vim.pack and will install on first launch"
+}
+
 # Main installation function
 main() {
   echo -e "${CYAN}=== Karl's dotfiles installation script for macOS ===${NC}"
@@ -118,12 +122,7 @@ main() {
 
   # Set up NeoVim
   log_info "Setting up NeoVim configuration"
-  # Install packer.nvim if not already installed
-  if [ ! -d "$HOME/.local/share/nvim/site/pack/packer/start/packer.nvim" ]; then
-    log_info "Installing packer.nvim..."
-    git clone --depth 1 https://github.com/wbthomason/packer.nvim \
-      ~/.local/share/nvim/site/pack/packer/start/packer.nvim
-  fi
+  bootstrap_neovim
 
   # Set up Tmux
   log_info "Setting up tmux configuration"
@@ -137,7 +136,7 @@ main() {
   echo -e "${YELLOW}Notes:${NC}"
   echo -e "1. Remember to restart your terminal for changes to take effect"
   echo -e "2. For tmux, launch it and press ${YELLOW}prefix + I${NC} to install plugins"
-  echo -e "3. For NeoVim, you might need to run ${YELLOW}:PackerSync${NC} manually inside NeoVim"
+  echo -e "3. For NeoVim, launch it once and let ${YELLOW}vim.pack${NC} install plugins automatically"
   echo -e "4. Some settings might require logout/login to take effect"
 }
 

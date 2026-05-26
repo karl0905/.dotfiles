@@ -1,5 +1,6 @@
 local M = {}
 
+-- clipboard fix for multiple OS'es
 M.setup = function()
   if vim.fn.has('wsl') == 1 then
     -- WSL-specific clipboard setup
