@@ -7,6 +7,10 @@ vim.g.fff = {
     cycle_previous_query = "<C-p>",
     cycle_grep_modes = '<C-s>',
   },
+  layout = {
+    prompt_position = "buttom",
+    preview_position = "top",
+  }
 }
 
 vim.api.nvim_create_autocmd("PackChanged", {
