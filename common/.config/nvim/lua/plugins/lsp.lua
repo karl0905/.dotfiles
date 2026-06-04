@@ -75,6 +75,11 @@ local server_settings = {
   ruby_lsp = {
     init_options = {
       formatter = "syntax_tree",
+      addonSettings = {
+        ["Ruby LSP Rails"] = {
+          enablePendingMigrationsPrompt = false,
+        },
+      },
     },
   },
   sorbet = {
