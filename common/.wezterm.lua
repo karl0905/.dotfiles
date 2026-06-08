@@ -44,6 +44,9 @@ config.font_size = 10
 config.enable_tab_bar = false
 config.color_scheme = "Rosé Pine Dawn (Gogh)"
 config.window_background_opacity = 1
+-- Omarchy/Mako keeps critical notifications persistent, and WezTerm sends
+-- OSC toast notifications as critical with no timeout on Linux.
+config.notification_handling = "SuppressFromFocusedPane"
 
 -- allow for left option to be used as a compose key
 config.use_dead_keys = false
