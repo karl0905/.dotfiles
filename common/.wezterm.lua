@@ -48,6 +48,25 @@ config.window_background_opacity = 1
 -- OSC toast notifications as critical with no timeout on Linux.
 config.notification_handling = "SuppressFromFocusedPane"
 
+-- Label visible URLs, then open the selected one in the default browser.
+config.keys = {
+  {
+    key = 'Space',
+    mods = 'CTRL',
+    action = wezterm.action.QuickSelectArgs {
+      label = 'open URL',
+      patterns = {
+        'https?://\\S*[A-Za-z0-9/_#?=&%+~-]',
+      },
+      skip_action_on_paste = true,
+      action = wezterm.action_callback(function(window, pane)
+        local url = window:get_selection_text_for_pane(pane)
+        wezterm.open_with(url)
+      end),
+    },
+  },
+}
+
 -- allow for left option to be used as a compose key
 config.use_dead_keys = false
 config.send_composed_key_when_left_alt_is_pressed = true
